@@ -332,6 +332,17 @@ const ImageStudio = (() => {
         return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
     }
 
+    const ALL_FILTER_TAGS = ['matcha','hojicha','coffee','special','hot','iced'];
+    const ALL_VIBE_TAGS = ['fruity','floral','dessert','classic','foamy'];
+    const ALL_TEMP_TAGS = ['hot','iced'];
+
+    function renderTagPills(tags, category, idx) {
+        const pills = (tags || []).map(t => 
+            `<span class="tag-pill ${category} ${t}">${t}<span class="tag-x" data-idx="${idx}" data-cat="${category}" data-tag="${t}">×</span></span>`
+        ).join('');
+        return `<div class="tag-row" data-idx="${idx}" data-cat="${category}">${pills}<button class="tag-add-btn" data-idx="${idx}" data-cat="${category}" title="Add tag">+</button></div>`;
+    }
+
     // --- Menu Manager ---
     function renderMenuGrid() {
         const grid = document.getElementById('menu-grid');
@@ -352,6 +363,18 @@ const ImageStudio = (() => {
                 <div class="menu-card-info" style="padding-top:0.5rem; display:flex; flex-direction:column; gap:0.3rem;">
                     <input type="text" class="edit-name-input" data-idx="${index}" value="${escapeHtml(drink.name)}" style="font-weight:bold; font-size:1rem; padding:0.2rem; border:1px solid #ddd; border-radius:4px;" />
                     <input type="text" class="edit-price-input" data-idx="${index}" value="${escapeHtml(drink.price)}" style="color:var(--matcha-green); font-weight:bold; padding:0.2rem; border:1px solid #ddd; border-radius:4px;" />
+                </div>
+                <div class="tag-section">
+                    <div class="tag-section-label">Filter Tags</div>
+                    ${renderTagPills(drink.galleryTags, 'filter', index)}
+                </div>
+                <div class="tag-section">
+                    <div class="tag-section-label">Vibe</div>
+                    ${renderTagPills(drink.galleryVibe, 'vibe', index)}
+                </div>
+                <div class="tag-section">
+                    <div class="tag-section-label">Temp</div>
+                    ${renderTagPills(drink.galleryTemp, 'temp', index)}
                 </div>
                 <label style="font-size:0.8rem; margin:0.3rem 0.5rem; display:flex; align-items:center; gap:0.3rem; cursor:pointer;">
                     <input type="checkbox" class="edit-active-toggle" data-idx="${index}" ${isActive ? 'checked' : ''}> Active / In Stock
@@ -399,6 +422,72 @@ const ImageStudio = (() => {
                     populateDrinkSelector();
                 }
             });
+
+        // --- Tag management ---
+        // Remove tag
+        grid.querySelectorAll('.tag-x').forEach(x => {
+            x.addEventListener('click', e => {
+                e.stopPropagation();
+                const idx = parseInt(x.dataset.idx);
+                const cat = x.dataset.cat;
+                const tag = x.dataset.tag;
+                const field = cat === 'filter' ? 'galleryTags' : cat === 'vibe' ? 'galleryVibe' : 'galleryTemp';
+                if (DRINKS[idx][field]) {
+                    DRINKS[idx][field] = DRINKS[idx][field].filter(t => t !== tag);
+                    menuDirty = true;
+                    renderMenuGrid();
+                }
+            });
+        });
+
+        // Add tag dropdown
+        grid.querySelectorAll('.tag-add-btn').forEach(btn => {
+            btn.addEventListener('click', e => {
+                e.stopPropagation();
+                // Close any existing dropdown
+                document.querySelectorAll('.tag-dropdown').forEach(d => d.remove());
+
+                const idx = parseInt(btn.dataset.idx);
+                const cat = btn.dataset.cat;
+                const field = cat === 'filter' ? 'galleryTags' : cat === 'vibe' ? 'galleryVibe' : 'galleryTemp';
+                const allOptions = cat === 'filter' ? ALL_FILTER_TAGS : cat === 'vibe' ? ALL_VIBE_TAGS : ALL_TEMP_TAGS;
+                const existing = DRINKS[idx][field] || [];
+                const available = allOptions.filter(t => !existing.includes(t));
+
+                if (available.length === 0) {
+                    showToast('All tags already applied', 'info');
+                    return;
+                }
+
+                const dropdown = document.createElement('div');
+                dropdown.className = 'tag-dropdown';
+                dropdown.innerHTML = available.map(t => 
+                    `<button class="tag-option" data-tag="${t}">${t}</button>`
+                ).join('');
+
+                // Position near the button
+                btn.parentElement.style.position = 'relative';
+                btn.parentElement.appendChild(dropdown);
+
+                dropdown.querySelectorAll('.tag-option').forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        if (!DRINKS[idx][field]) DRINKS[idx][field] = [];
+                        DRINKS[idx][field].push(opt.dataset.tag);
+                        menuDirty = true;
+                        dropdown.remove();
+                        renderMenuGrid();
+                    });
+                });
+
+                // Close dropdown when clicking elsewhere
+                setTimeout(() => {
+                    document.addEventListener('click', function closeDropdown() {
+                        dropdown.remove();
+                        document.removeEventListener('click', closeDropdown);
+                    }, { once: true });
+                }, 10);
+            });
+        });
         });
 
         // Hidden file input for uploads
