@@ -80,40 +80,8 @@
         <div class="footer-drinks">Kinkerstraat 334, Amsterdam ・ 100% Matcha Vibes</div>
     </div>
     <script>
-        const DRINKS = [
-            { name:"Strawberry Cold Foam Matcha", price:"€7.20", tags:["matcha","special","iced"], vibe:["fruity","foamy"], temp:["iced"], image:"../images/cold_drinks/earthy/sweet/foamy/fruity/indulgent/iced_cold_foam_strawberry.png", desc:"Sweet, vibrant, and incredibly foamy." },
-            { name:"Vanilla Cold Foam Matcha", price:"€7.20", tags:["matcha","special","iced"], vibe:["dessert","foamy"], temp:["iced"], image:"../images/cold_drinks/earthy/sweet/foamy/dessert/indulgent/iced_cold_foam_vanilla.png", desc:"Rich vanilla bean cloud over earthy matcha." },
-            { name:"Jasmine Cold Foam Matcha", price:"€7.20", tags:["matcha","special","iced"], vibe:["floral","foamy"], temp:["iced"], image:"../images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_foam_jasmine.png", desc:"A delicate jasmine cloud over iced umami matcha." },
-            { name:"Lavender Cold Foam Matcha", price:"€7.20", tags:["matcha","special","iced"], vibe:["floral","foamy"], temp:["iced"], image:"../images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_hojicha_latte_lavender_coldfoam.png", desc:"Calming pastel lavender foam perfectly balanced." },
-            { name:"Rose Cold Foam Matcha", price:"€7.20", tags:["matcha","special","iced"], vibe:["floral","foamy"], temp:["iced"], image:"../images/cold_drinks/earthy/natural/foamy/floral/energizing/iced_foam_rose.png", desc:"Fresh, aromatic pale pink rose cold foam." },
-            { name:"Matcha Soda", price:"€7.20", tags:["matcha","special","iced"], vibe:["classic"], temp:["iced"], image:"../images/cold_drinks/earthy/natural/refreshing/classic/energizing/iced_matcha_soda.png", desc:"Umami, refreshing, slightly sour." },
-            { name:"Coconut Cloud Matcha", price:"€7.20", tags:["matcha","special","iced"], vibe:["floral","foamy"], temp:["iced"], image:"../images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_coconut_cloud_matcha.png", desc:"Fresh, creamy, and deeply refreshing umami." },
-            { name:"Banana Matcha Latte", price:"€7.20", tags:["matcha","special","iced"], vibe:["fruity"], temp:["iced"], image:"../images/cold_drinks/earthy/sweet/foamy/fruity/indulgent/iced_banana_matcha.png", desc:"Sweet banana swirled into earthy matcha perfection." },
-            { name:"Orgeade Matcha Latte", price:"€7.20", tags:["matcha","special","iced"], vibe:["dessert"], temp:["iced"], image:"../images/cold_drinks/earthy/balanced/foamy/dessert/chill/iced_orgeade_matcha.png", desc:"Almond-infused orgeade meets earthy umami matcha." },
-            { name:"Strawberry Matcha Latte", price:"€7.20", tags:["matcha","special","iced"], vibe:["fruity"], temp:["iced"], image:"../images/cold_drinks/earthy/sweet/standard/fruity/indulgent/iced_strawberry_matcha.png", desc:"Umami, fruity, visually stunning." },
-            { name:"Mango Matcha Latte", price:"€7.20", tags:["matcha","special","iced"], vibe:["fruity"], temp:["iced"], image:"../images/cold_drinks/earthy/sweet/standard/fruity/indulgent/iced_mango_matcha.png", desc:"Umami, tropical & fruity." },
+        let DRINKS = [];
 
-
-            { name:"Hojicha Vanilla Cold Foam", price:"€7.20", tags:["hojicha","special","iced"], vibe:["dessert","foamy"], temp:["iced"], image:"../images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_vanilla_coldfoam.png", desc:"Sweet, nutty hojicha beneath a rich vanilla cloud." },
-            { name:"Hojicha Lavender Cold Foam", price:"€7.20", tags:["hojicha","special","iced"], vibe:["floral","foamy"], temp:["iced"], image:"../images/cold_drinks/nutty_roasty/balanced/foamy/floral/chill/iced_hojicha_lavender_coldfoam.png", desc:"Perfectly balanced roasty hojicha with calming lavender." },
-            { name:"Iced Creamy Hojicha", price:"€6.50", tags:["hojicha","special","iced"], vibe:["dessert"], temp:["iced"], image:"../images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_iced_creamy.png", desc:"Rich, creamy, swirling roasted umami." },
-            { name:"Americano Matcha Foam", price:"€5.50", tags:["coffee","matcha","special","iced"], vibe:["classic","foamy"], temp:["iced"], image:"../images/cold_drinks/coffee/balanced/foamy/classic/energizing/iced_americano_matcha_foam.png", desc:"Crisp espresso balanced with a rich umami matcha cloud." },
-            { name:"Hot Chocolate", price:"€5.00", tags:["special","hot"], vibe:["dessert"], temp:["hot"], image:"../images/hot_drinks/coffee/sweet/standard/dessert/indulgent/hot_chocolate.png", desc:"Decadently rich, melted artisan chocolate with steamed milk." },
-            { name:"Matcha Latte", price:"€6.50", tags:["matcha","hot","iced"], vibe:["classic"], temp:["hot","iced"], image:"../images/cold_drinks/earthy/balanced/standard/classic/energizing/iced_matcha_latte.png", desc:"Smooth, earthy, perfectly balanced umami goodness." },
-            { name:"Kocha Latte", price:"€5.70", tags:["hot"], vibe:["classic"], temp:["hot"], image:"../images/hot_drinks/surprise/natural/refreshing/classic/chill/hot_kocha_latte.png", desc:"Japanese black tea, rich and malty." },
-            { name:"Matcha Tea", price:"€6.20", tags:["matcha","hot","iced"], vibe:["classic"], temp:["hot","iced"], image:"../images/cold_drinks/earthy/natural/refreshing/classic/energizing/sencha_tea.png", desc:"Pure, high-grade ceremonial matcha." },
-            { name:"Hot Hojicha Tea", price:"€4.20", tags:["hojicha","hot"], vibe:["classic"], temp:["hot"], image:"../images/hot_drinks/nutty_roasty/natural/refreshing/dessert/chill/hojicha_hot_tea.png", desc:"Deeply comforting roasted green tea." },
-            { name:"Hot Kocha Tea", price:"€4.20", tags:["hot"], vibe:["classic"], temp:["hot"], image:"../images/hot_drinks/surprise/natural/refreshing/classic/chill/kocha_hot_tea.png", desc:"Comforting, smooth Japanese black tea." },
-            { name:"Iced Latte", price:"€4.50", tags:["coffee","iced"], vibe:["classic"], temp:["iced"], image:"../images/cold_drinks/coffee/balanced/standard/classic/energizing/iced_latte.png", desc:"Bold espresso meets creamy milk over ice." },
-            { name:"Flat White", price:"€4.20", tags:["coffee","hot"], vibe:["classic"], temp:["hot"], image:"../images/hot_drinks/coffee/natural/standard/classic/energizing/flat_white.png", desc:"Strong, smooth, velvety microfoam." },
-            { name:"Iced Americano", price:"€3.70", tags:["coffee","iced"], vibe:["classic"], temp:["iced"], image:"../images/cold_drinks/coffee/natural/refreshing/classic/energizing/iced_americano.png", desc:"Crisp, bold espresso stretched with cold water." },
-            { name:"Cortado", price:"€3.70", tags:["coffee","hot"], vibe:["classic"], temp:["hot"], image:"../images/hot_drinks/coffee/natural/standard/classic/energizing/cortado.png", desc:"Equal parts espresso & steamed milk." },
-            { name:"Cappuccino", price:"€4.50", tags:["coffee","hot"], vibe:["classic","foamy"], temp:["hot"], image:"../images/hot_drinks/coffee/balanced/foamy/classic/energizing/hot_cappuccino.png", desc:"Rich espresso topped with velvety foam." },
-            { name:"Espresso", price:"€3.00", tags:["coffee","hot"], vibe:["classic"], temp:["hot"], image:"../images/hot_drinks/coffee/natural/standard/classic/energizing/hot_espresso.png", desc:"A pure, intense shot of perfectly extracted coffee." },
-            { name:"Hot Latte", price:"€4.50", tags:["coffee","hot"], vibe:["classic"], temp:["hot"], image:"../images/hot_drinks/coffee/balanced/standard/classic/relaxed/hot_latte.png", desc:"Smooth espresso blended with steamed milk." },
-            { name:"Hot Americano", price:"€3.80", tags:["coffee","hot"], vibe:["classic"], temp:["hot"], image:"../images/hot_drinks/coffee/natural/refreshing/classic/energizing/hot_americano.png", desc:"Bold espresso drawn out with hot water." },
-            { name:"Hot Hojicha Latte", price:"€5.20", tags:["hojicha","hot"], vibe:["classic"], temp:["hot"], image:"../images/hot_drinks/nutty_roasty/balanced/standard/classic/relaxed/hot_hojicha_latte.png", desc:"Warm roasted green tea folded into steamed milk." }
-        ];
 
         const SUB_FILTERS = [
             { key:"fruity", label:"🍓 Fruity" },
@@ -129,24 +97,28 @@
         let activeFilter = 'all';
         let activeSub = null;
 
+        function getTags(d) { return d.galleryTags || []; }
+        function getVibe(d) { return d.galleryVibe || []; }
+        function getTemp(d) { return d.galleryTemp || []; }
+
         function getFiltered() {
-            let list = activeFilter === 'all' ? DRINKS : DRINKS.filter(d => d.tags.includes(activeFilter));
-            if (activeSub) list = list.filter(d => d.vibe.includes(activeSub));
+            let list = activeFilter === 'all' ? DRINKS : DRINKS.filter(d => getTags(d).includes(activeFilter));
+            if (activeSub) list = list.filter(d => getVibe(d).includes(activeSub));
             return list;
         }
 
         function renderSubFilters() {
-            const mainFiltered = activeFilter === 'all' ? DRINKS : DRINKS.filter(d => d.tags.includes(activeFilter));
+            const mainFiltered = activeFilter === 'all' ? DRINKS : DRINKS.filter(d => getTags(d).includes(activeFilter));
             // Only show sub-filters if there are multiple vibes present
             const availableVibes = new Set();
-            mainFiltered.forEach(d => d.vibe.forEach(v => availableVibes.add(v)));
+            mainFiltered.forEach(d => getVibe(d).forEach(v => availableVibes.add(v)));
             if (availableVibes.size <= 1) { subBar.classList.add('hidden'); subBar.innerHTML=''; return; }
 
             subBar.classList.remove('hidden');
             subBar.innerHTML = `<button class="sub-btn ${!activeSub ? 'active' : ''}" data-sub="all">Show All</button>`;
             SUB_FILTERS.forEach(sf => {
                 if (!availableVibes.has(sf.key)) return;
-                const count = mainFiltered.filter(d => d.vibe.includes(sf.key)).length;
+                const count = mainFiltered.filter(d => getVibe(d).includes(sf.key)).length;
                 subBar.innerHTML += `<button class="sub-btn ${activeSub===sf.key?'active':''}" data-sub="${sf.key}">${sf.label} (${count})</button>`;
             });
         }
@@ -169,7 +141,7 @@
                         <div class="drink-card-meta">
                             <div class="drink-card-price">${drink.price}</div>
                             <div class="temp-badges">
-                                ${drink.temp.map(t => `<span class="temp-badge ${t}">${t==='iced'?'🧊 Iced':'🔥 Hot'}</span>`).join('')}
+                                ${getTemp(drink).map(t => `<span class="temp-badge ${t}">${t==='iced'?'🧊 Iced':'🔥 Hot'}</span>`).join('')}
                             </div>
                         </div>
                     </div>`;
@@ -197,8 +169,18 @@
             renderDrinks();
         });
 
-        renderSubFilters();
-        renderDrinks();
+        async function init() {
+            try {
+                const res = await fetch('../drinks.json');
+                const data = await res.json();
+                DRINKS = data.filter(d => d.active !== false).map(d => ({...d, image: '../' + d.image}));
+                renderSubFilters();
+                renderDrinks();
+            } catch(e) {
+                console.error('Failed to load drinks', e);
+            }
+        }
+        init();
     </script>
 </body>
 </html>

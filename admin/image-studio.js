@@ -13,38 +13,16 @@ const ImageStudio = (() => {
     let imageHistory = JSON.parse(localStorage.getItem('kyo_image_history') || '[]');
 
     // --- Drinks DB (shared with main app) ---
-    const DRINKS = [
-        { name:"Strawberry Cold Foam Matcha", price:"€7.20", image:"../images/cold_drinks/earthy/sweet/foamy/fruity/indulgent/iced_cold_foam_strawberry.png", desc:"Sweet, vibrant, and incredibly foamy." },
-        { name:"Vanilla Cold Foam Matcha", price:"€7.20", image:"../images/cold_drinks/earthy/sweet/foamy/dessert/indulgent/iced_cold_foam_vanilla.png", desc:"Rich vanilla bean cloud over earthy matcha." },
-        { name:"Jasmine Cold Foam Matcha", price:"€7.20", image:"../images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_foam_jasmine.png", desc:"A delicate jasmine cloud over iced umami matcha." },
-        { name:"Lavender Cold Foam Matcha", price:"€7.20", image:"../images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_hojicha_latte_lavender_coldfoam.png", desc:"Calming pastel lavender foam perfectly balanced." },
-        { name:"Rose Cold Foam Matcha", price:"€7.20", image:"../images/cold_drinks/earthy/natural/foamy/floral/energizing/iced_foam_rose.png", desc:"Fresh, aromatic pale pink rose cold foam." },
-        { name:"Matcha Soda", price:"€7.20", image:"../images/cold_drinks/earthy/natural/refreshing/classic/energizing/iced_matcha_soda.png", desc:"Umami, refreshing, slightly sour." },
-        { name:"Coconut Cloud Matcha", price:"€7.20", image:"../images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_coconut_cloud_matcha.png", desc:"Fresh, creamy, and deeply refreshing umami." },
-        { name:"Banana Matcha Latte", price:"€7.20", image:"../images/cold_drinks/earthy/sweet/foamy/fruity/indulgent/iced_banana_matcha.png", desc:"Sweet banana swirled into earthy matcha perfection." },
-        { name:"Orgeade Matcha Latte", price:"€7.20", image:"../images/cold_drinks/earthy/balanced/foamy/dessert/chill/iced_orgeade_matcha.png", desc:"Almond-infused orgeade meets earthy umami matcha." },
-        { name:"Strawberry Matcha Latte", price:"€7.20", image:"../images/cold_drinks/earthy/sweet/standard/fruity/indulgent/iced_strawberry_matcha.png", desc:"Umami, fruity, visually stunning." },
-        { name:"Mango Matcha Latte", price:"€7.20", image:"../images/cold_drinks/earthy/sweet/standard/fruity/indulgent/iced_mango_matcha.png", desc:"Umami, tropical & fruity." },
-        { name:"Hojicha Vanilla Cold Foam", price:"€7.20", image:"../images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_vanilla_coldfoam.png", desc:"Sweet, nutty hojicha beneath a rich vanilla cloud." },
-        { name:"Hojicha Lavender Cold Foam", price:"€7.20", image:"../images/cold_drinks/nutty_roasty/balanced/foamy/floral/chill/iced_hojicha_lavender_coldfoam.png", desc:"Perfectly balanced roasty hojicha with calming lavender." },
-        { name:"Iced Creamy Hojicha", price:"€6.50", image:"../images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_iced_creamy.png", desc:"Rich, creamy, swirling roasted umami." },
-        { name:"Americano Matcha Foam", price:"€5.50", image:"../images/cold_drinks/coffee/balanced/foamy/classic/energizing/iced_americano_matcha_foam.png", desc:"Crisp espresso balanced with a rich umami matcha cloud." },
-        { name:"Hot Chocolate", price:"€5.00", image:"../images/hot_drinks/coffee/sweet/standard/dessert/indulgent/hot_chocolate.png", desc:"Decadently rich, melted artisan chocolate with steamed milk." },
-        { name:"Matcha Latte", price:"€6.50", image:"../images/cold_drinks/earthy/balanced/standard/classic/energizing/iced_matcha_latte.png", desc:"Smooth, earthy, perfectly balanced umami goodness." },
-        { name:"Kocha Latte", price:"€5.70", image:"../images/hot_drinks/surprise/natural/refreshing/classic/chill/hot_kocha_latte.png", desc:"Japanese black tea, rich and malty." },
-        { name:"Matcha Tea", price:"€6.20", image:"../images/cold_drinks/earthy/natural/refreshing/classic/energizing/sencha_tea.png", desc:"Pure, high-grade ceremonial matcha." },
-        { name:"Hot Hojicha Tea", price:"€4.20", image:"../images/hot_drinks/nutty_roasty/natural/refreshing/dessert/chill/hojicha_hot_tea.png", desc:"Deeply comforting roasted green tea." },
-        { name:"Hot Kocha Tea", price:"€4.20", image:"../images/hot_drinks/surprise/natural/refreshing/classic/chill/kocha_hot_tea.png", desc:"Comforting, smooth Japanese black tea." },
-        { name:"Iced Latte", price:"€4.50", image:"../images/cold_drinks/coffee/balanced/standard/classic/energizing/iced_latte.png", desc:"Bold espresso meets creamy milk over ice." },
-        { name:"Flat White", price:"€4.20", image:"../images/hot_drinks/coffee/natural/standard/classic/energizing/flat_white.png", desc:"Strong, smooth, velvety microfoam." },
-        { name:"Iced Americano", price:"€3.70", image:"../images/cold_drinks/coffee/natural/refreshing/classic/energizing/iced_americano.png", desc:"Crisp, bold espresso stretched with cold water." },
-        { name:"Cortado", price:"€3.70", image:"../images/hot_drinks/coffee/natural/standard/classic/energizing/cortado.png", desc:"Equal parts espresso & steamed milk." },
-        { name:"Cappuccino", price:"€4.50", image:"../images/hot_drinks/coffee/balanced/foamy/classic/energizing/hot_cappuccino.png", desc:"Rich espresso topped with velvety foam." },
-        { name:"Espresso", price:"€3.00", image:"../images/hot_drinks/coffee/natural/standard/classic/energizing/hot_espresso.png", desc:"A pure, intense shot of perfectly extracted coffee." },
-        { name:"Hot Latte", price:"€4.50", image:"../images/hot_drinks/coffee/balanced/standard/classic/relaxed/hot_latte.png", desc:"Smooth espresso blended with steamed milk." },
-        { name:"Hot Americano", price:"€3.80", image:"../images/hot_drinks/coffee/natural/refreshing/classic/energizing/hot_americano.png", desc:"Bold espresso drawn out with hot water." },
-        { name:"Hot Hojicha Latte", price:"€5.20", image:"../images/hot_drinks/nutty_roasty/balanced/standard/classic/relaxed/hot_hojicha_latte.png", desc:"Warm roasted green tea folded into steamed milk." }
-    ];
+    let DRINKS = [];
+    let menuDirty = false;
+
+    // Warn before leaving with unsaved changes
+    window.addEventListener('beforeunload', e => {
+        if (menuDirty) {
+            e.preventDefault();
+            e.returnValue = '';
+        }
+    });
 
     // --- Style Presets ---
     const PRESETS = {
@@ -266,7 +244,15 @@ const ImageStudio = (() => {
     }
 
     // --- Init UI ---
-    function init() {
+    async function init() {
+        try {
+            const res = await fetch('../drinks.json');
+            const data = await res.json();
+            DRINKS = data.map(d => ({...d, image: '../' + d.image}));
+        } catch(e) {
+            showToast('Failed to load drinks.json', 'error');
+            console.error(e);
+        }
         populateDrinkSelector();
         setupPresets();
         setupGenerateBtn();
@@ -274,6 +260,76 @@ const ImageStudio = (() => {
         setupTabs();
         renderHistory();
         renderMenuGrid();
+        setupAdminActions();
+    }
+
+    function setupAdminActions() {
+        const addBtn = document.getElementById('add-drink-btn');
+        const saveBtn = document.getElementById('save-menu-btn');
+        
+        if(addBtn) {
+            addBtn.addEventListener('click', () => {
+                DRINKS.push({
+                    name: "New Custom Drink",
+                    price: "€0.00",
+                    image: "../images/cold_drinks/placeholder.png",
+                    desc: "A brand new drink.",
+                    type: "special",
+                    tags: { temp: ["iced", "hot"], base: ["surprise"], sweetness: ["medium"], texture: ["standard"], flavor: ["classic"], mood: ["relaxed"] },
+                    galleryTags: ["special"],
+                    galleryVibe: ["classic"],
+                    galleryTemp: ["iced", "hot"],
+                    active: true
+                });
+                menuDirty = true;
+                renderMenuGrid();
+                populateDrinkSelector();
+                
+                // Scroll to bottom
+                setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 100);
+            });
+        }
+        
+        if(saveBtn) {
+            saveBtn.addEventListener('click', async () => {
+                saveBtn.textContent = 'Saving...';
+                saveBtn.disabled = true;
+                showToast('Pushing menu updates to GitHub...', 'info');
+                
+                try {
+                    // Remove the '../' from images before saving!
+                    const cleanedDrinks = DRINKS.map(d => {
+                        let img = d.image;
+                        if(img.startsWith('../')) img = img.substring(3);
+                        return { ...d, image: img };
+                    });
+                    
+                    const res = await fetch(API_BASE + '/api/studio/save-menu', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ drinksJson: cleanedDrinks, pin: STUDIO_PIN })
+                    });
+                    
+                    if(res.ok) {
+                        menuDirty = false;
+                        showToast('Menu saved to Server successfully!', 'success');
+                    } else {
+                        const err = await res.json();
+                        throw new Error(err.error || 'Failed to save');
+                    }
+                } catch(e) {
+                    showToast('Failed to save menu: ' + e.message, 'error');
+                }
+                
+                saveBtn.textContent = '💾 Save Menu to Server';
+                saveBtn.disabled = false;
+            });
+        }
+    }
+
+    // --- Helpers ---
+    function escapeHtml(str) {
+        return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
     }
 
     // --- Menu Manager ---
@@ -285,22 +341,64 @@ const ImageStudio = (() => {
         DRINKS.forEach((drink, index) => {
             const isHot = drink.image.includes('hot_drinks');
             const card = document.createElement('div');
-            card.className = 'menu-card';
+            const isActive = drink.active !== false;
+            card.className = `menu-card ${isActive ? '' : 'inactive'}`;
+            if (!isActive) card.style.opacity = '0.5';
+            
             card.innerHTML = `
                 <span class="menu-card-badge ${isHot ? 'hot' : 'cold'}">${isHot ? 'Hot' : 'Cold'}</span>
                 <img class="menu-card-img" src="${drink.image}" alt="${drink.name}"
                      onerror="this.outerHTML='<div class=\\'menu-card-img missing\\'>🍵</div>'">
-                <div class="menu-card-info">
-                    <div class="menu-card-name" title="${drink.name}">${drink.name}</div>
-                    <div class="menu-card-price">${drink.price}</div>
+                <div class="menu-card-info" style="padding-top:0.5rem; display:flex; flex-direction:column; gap:0.3rem;">
+                    <input type="text" class="edit-name-input" data-idx="${index}" value="${escapeHtml(drink.name)}" style="font-weight:bold; font-size:1rem; padding:0.2rem; border:1px solid #ddd; border-radius:4px;" />
+                    <input type="text" class="edit-price-input" data-idx="${index}" value="${escapeHtml(drink.price)}" style="color:var(--matcha-green); font-weight:bold; padding:0.2rem; border:1px solid #ddd; border-radius:4px;" />
                 </div>
-                <div class="menu-card-actions">
-                    <button class="menu-ai-btn" data-idx="${index}" title="Generate with AI">🤖 AI</button>
-                    <button class="menu-upload-btn" data-idx="${index}" title="Upload image">📤 Upload</button>
-                    <button class="menu-download-btn" data-idx="${index}" title="Download image">💾</button>
+                <label style="font-size:0.8rem; margin:0.3rem 0.5rem; display:flex; align-items:center; gap:0.3rem; cursor:pointer;">
+                    <input type="checkbox" class="edit-active-toggle" data-idx="${index}" ${isActive ? 'checked' : ''}> Active / In Stock
+                </label>
+                <div class="menu-card-actions" style="margin-top:0.2rem; justify-content:space-between; padding:0.5rem; border-top:1px solid #eee;">
+                    <div style="display:flex; gap:0.2rem;">
+                        <button class="menu-ai-btn" data-idx="${index}" title="Generate with AI">🤖</button>
+                        <button class="menu-upload-btn" data-idx="${index}" title="Upload image">📤</button>
+                        <button class="menu-download-btn" data-idx="${index}" title="Download image">💾</button>
+                    </div>
+                    <button class="menu-del-btn" data-idx="${index}" title="Remove Drink" style="background:#ffecec; color:#d32f2f; border:none; padding:0.3rem 0.5rem; border-radius:4px; cursor:pointer; transition:background 0.2s;">🗑️</button>
                 </div>
             `;
             grid.appendChild(card);
+        });
+
+        // Add event listeners for new inputs
+        grid.querySelectorAll('.edit-name-input').forEach(input => {
+            input.addEventListener('change', e => {
+                DRINKS[e.target.dataset.idx].name = e.target.value;
+                menuDirty = true;
+                populateDrinkSelector();
+            });
+        });
+        grid.querySelectorAll('.edit-price-input').forEach(input => {
+            input.addEventListener('change', e => {
+                DRINKS[e.target.dataset.idx].price = e.target.value;
+                menuDirty = true;
+            });
+        });
+        grid.querySelectorAll('.edit-active-toggle').forEach(input => {
+            input.addEventListener('change', e => {
+                DRINKS[e.target.dataset.idx].active = e.target.checked;
+                menuDirty = true;
+                renderMenuGrid(); // Re-render to update opacity
+            });
+        });
+        grid.querySelectorAll('.menu-del-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.dataset.idx);
+                if(confirm(`Are you sure you want to remove "${DRINKS[idx].name}"?`)) {
+                    DRINKS.splice(idx, 1);
+                    menuDirty = true;
+                    renderMenuGrid();
+                    populateDrinkSelector();
+                }
+            });
         });
 
         // Hidden file input for uploads

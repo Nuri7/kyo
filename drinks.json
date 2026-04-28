@@ -1,0 +1,1337 @@
+[
+  {
+    "name": "Strawberry Cold Foam Matcha",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/sweet/foamy/fruity/indulgent/iced_cold_foam_strawberry.png",
+    "desc": "Sweet, vibrant, and incredibly foamy.",
+    "customs": [
+      "Oat milk base included"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "high"
+      ],
+      "texture": [
+        "foamy"
+      ],
+      "flavor": [
+        "fruity"
+      ],
+      "mood": [
+        "indulgent"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "fruity",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Vanilla Cold Foam Matcha",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/sweet/foamy/dessert/indulgent/iced_cold_foam_vanilla.png",
+    "desc": "Rich vanilla bean cloud over earthy matcha.",
+    "customs": [
+      "Oat milk base included"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "high"
+      ],
+      "texture": [
+        "foamy"
+      ],
+      "flavor": [
+        "dessert"
+      ],
+      "mood": [
+        "indulgent"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "dessert",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Jasmine Cold Foam Matcha",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_foam_jasmine.png",
+    "desc": "A delicate jasmine cloud over iced umami matcha.",
+    "customs": [
+      "Oat milk base included",
+      "Balanced sweetness"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "medium"
+      ],
+      "texture": [
+        "foamy"
+      ],
+      "flavor": [
+        "floral"
+      ],
+      "mood": [
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "floral",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Lavender Cold Foam Matcha",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_hojicha_latte_lavender_coldfoam.png",
+    "desc": "Calming pastel lavender foam perfectly balanced.",
+    "customs": [
+      "Oat milk base included"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "medium"
+      ],
+      "texture": [
+        "foamy"
+      ],
+      "flavor": [
+        "floral"
+      ],
+      "mood": [
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "floral",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Rose Cold Foam Matcha",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/natural/foamy/floral/energizing/iced_foam_rose.png",
+    "desc": "Fresh, aromatic pale pink rose cold foam.",
+    "customs": [
+      "Oat milk base included"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "low",
+        "medium"
+      ],
+      "texture": [
+        "foamy",
+        "refreshing"
+      ],
+      "flavor": [
+        "floral"
+      ],
+      "mood": [
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "floral",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Matcha Soda",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/natural/refreshing/classic/energizing/iced_matcha_soda.png",
+    "desc": "Umami, refreshing, slightly sour.",
+    "customs": [
+      "Perfect as is — super refreshing!"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "low",
+        "medium"
+      ],
+      "texture": [
+        "refreshing"
+      ],
+      "flavor": [
+        "classic",
+        "fruity"
+      ],
+      "mood": [
+        "energizing",
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Coconut Cloud Matcha",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_coconut_cloud_matcha.png",
+    "desc": "Fresh, creamy, and deeply refreshing umami.",
+    "customs": [
+      "Classic white coconut cloud"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "medium",
+        "low"
+      ],
+      "texture": [
+        "foamy",
+        "refreshing"
+      ],
+      "flavor": [
+        "floral",
+        "classic"
+      ],
+      "mood": [
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "floral",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Banana Matcha Latte",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/sweet/foamy/fruity/indulgent/iced_banana_matcha.png",
+    "desc": "Sweet banana swirled into earthy matcha perfection.",
+    "customs": [
+      "Oat milk base included"
+    ],
+    "tags": {
+      "temp": [
+        "iced",
+        "any"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "high"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "fruity"
+      ],
+      "mood": [
+        "indulgent"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "fruity"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Orgeade Matcha Latte",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/balanced/foamy/dessert/chill/iced_orgeade_matcha.png",
+    "desc": "Almond-infused orgeade meets earthy umami matcha.",
+    "customs": [
+      "Garnished with crushed almonds"
+    ],
+    "tags": {
+      "temp": [
+        "iced",
+        "any"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "medium"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "dessert"
+      ],
+      "mood": [
+        "relaxed",
+        "indulgent"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "dessert"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Strawberry Matcha Latte",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/sweet/standard/fruity/indulgent/iced_strawberry_matcha.png",
+    "desc": "Umami, fruity, visually stunning.",
+    "customs": [
+      "Oat milk base included"
+    ],
+    "tags": {
+      "temp": [
+        "iced",
+        "any"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "high"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "fruity"
+      ],
+      "mood": [
+        "indulgent",
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "fruity"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Mango Matcha Latte",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/earthy/sweet/standard/fruity/indulgent/iced_mango_matcha.png",
+    "desc": "Umami, tropical & fruity.",
+    "customs": [
+      "Oat milk base included"
+    ],
+    "tags": {
+      "temp": [
+        "iced",
+        "any"
+      ],
+      "base": [
+        "matcha",
+        "surprise"
+      ],
+      "sweetness": [
+        "high"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "fruity"
+      ],
+      "mood": [
+        "indulgent",
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "fruity"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Matcha Latte",
+    "price": "€6.50",
+    "type": "daily",
+    "image": "images/cold_drinks/earthy/balanced/standard/classic/energizing/iced_matcha_latte.png",
+    "desc": "Smooth, earthy, perfectly balanced umami goodness.",
+    "customs": [
+      "Add Vanilla SF (+€0.50) for a touch of sweetness",
+      "Add +€0.50 Sproud milk"
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "iced",
+        "any"
+      ],
+      "base": [
+        "matcha"
+      ],
+      "sweetness": [
+        "medium",
+        "low"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing",
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "hot",
+      "iced"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot",
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Hojicha Vanilla Cold Foam",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_vanilla_coldfoam.png",
+    "desc": "Sweet, nutty hojicha beneath a rich vanilla cloud.",
+    "customs": [
+      "Vanilla bean cold foam included"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "hojicha",
+        "surprise"
+      ],
+      "sweetness": [
+        "high"
+      ],
+      "texture": [
+        "foamy"
+      ],
+      "flavor": [
+        "dessert"
+      ],
+      "mood": [
+        "indulgent"
+      ]
+    },
+    "galleryTags": [
+      "hojicha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "dessert",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Hojicha Lavender Cold Foam",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/nutty_roasty/balanced/foamy/floral/chill/iced_hojicha_lavender_coldfoam.png",
+    "desc": "Perfectly balanced roasty hojicha with calming lavender.",
+    "customs": [
+      "Lavender seeds garnish"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "hojicha",
+        "surprise"
+      ],
+      "sweetness": [
+        "medium"
+      ],
+      "texture": [
+        "foamy"
+      ],
+      "flavor": [
+        "floral",
+        "classic"
+      ],
+      "mood": [
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "hojicha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "floral",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Iced Creamy Hojicha",
+    "price": "€6.50",
+    "type": "special",
+    "image": "images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_iced_creamy.png",
+    "desc": "Rich, creamy, swirling roasted umami.",
+    "customs": [
+      "Extra creamy oat milk blend"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "hojicha",
+        "surprise"
+      ],
+      "sweetness": [
+        "medium",
+        "high"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "classic",
+        "dessert"
+      ],
+      "mood": [
+        "relaxed",
+        "indulgent"
+      ]
+    },
+    "galleryTags": [
+      "hojicha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "dessert"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Kocha Latte",
+    "price": "€5.70",
+    "type": "daily",
+    "image": "images/hot_drinks/surprise/natural/refreshing/classic/chill/hot_kocha_latte.png",
+    "desc": "Japanese black tea, rich and malty.",
+    "customs": [
+      "Add Hazelnut SF (+€0.50)"
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "matcha",
+        "hojicha",
+        "surprise"
+      ],
+      "sweetness": [
+        "medium"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing",
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Matcha Tea",
+    "price": "€6.20",
+    "type": "daily",
+    "image": "images/cold_drinks/earthy/natural/refreshing/classic/energizing/sencha_tea.png",
+    "desc": "Pure, high-grade ceremonial matcha.",
+    "customs": [
+      "No milk, pure umami focus"
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "iced",
+        "any"
+      ],
+      "base": [
+        "matcha"
+      ],
+      "sweetness": [
+        "low"
+      ],
+      "texture": [
+        "refreshing"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing",
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "matcha",
+      "hot",
+      "iced"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot",
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Hot Hojicha Tea",
+    "price": "€4.20",
+    "type": "daily",
+    "image": "images/hot_drinks/nutty_roasty/natural/refreshing/dessert/chill/hojicha_hot_tea.png",
+    "desc": "Deeply comforting hot roasted green tea with natural nutty caramel notes.",
+    "customs": [
+      "Brewed in a traditional kyusu."
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "hojicha"
+      ],
+      "sweetness": [
+        "low"
+      ],
+      "texture": [
+        "refreshing"
+      ],
+      "flavor": [
+        "dessert",
+        "classic"
+      ],
+      "mood": [
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "hojicha",
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Hot Kocha Tea",
+    "price": "€4.20",
+    "type": "daily",
+    "image": "images/hot_drinks/surprise/natural/refreshing/classic/chill/kocha_hot_tea.png",
+    "desc": "Comforting, smooth Japanese black tea.",
+    "customs": [
+      "Brewed in a traditional kyusu."
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "hojicha",
+        "matcha",
+        "coffee"
+      ],
+      "sweetness": [
+        "low"
+      ],
+      "texture": [
+        "refreshing"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "relaxed",
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Iced Latte",
+    "price": "€4.50",
+    "type": "coffee",
+    "image": "images/cold_drinks/coffee/balanced/standard/classic/energizing/iced_latte.png",
+    "desc": "Bold espresso meets creamy milk over ice.",
+    "customs": [
+      "Add extra shot (+€1.00)",
+      "Add Caramel (+€0.50)"
+    ],
+    "tags": {
+      "temp": [
+        "iced",
+        "any"
+      ],
+      "base": [
+        "coffee"
+      ],
+      "sweetness": [
+        "medium",
+        "low"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "coffee",
+      "iced"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Flat White",
+    "price": "€4.20",
+    "type": "coffee",
+    "image": "images/hot_drinks/coffee/natural/standard/classic/energizing/flat_white.png",
+    "desc": "Strong, smooth, velvety microfoam.",
+    "customs": [
+      "Try it with oat milk!"
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "coffee"
+      ],
+      "sweetness": [
+        "low"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "coffee",
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Iced Americano",
+    "price": "€3.70",
+    "type": "coffee",
+    "image": "images/cold_drinks/coffee/natural/refreshing/classic/energizing/iced_americano.png",
+    "desc": "Crisp, bold espresso stretched with cold water.",
+    "customs": [],
+    "tags": {
+      "temp": [
+        "iced",
+        "any"
+      ],
+      "base": [
+        "coffee"
+      ],
+      "sweetness": [
+        "low"
+      ],
+      "texture": [
+        "refreshing"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "coffee",
+      "iced"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Americano Matcha Foam",
+    "price": "€7.20",
+    "type": "special",
+    "image": "images/cold_drinks/coffee/balanced/foamy/classic/energizing/iced_americano_matcha_foam.png",
+    "desc": "Crisp espresso balanced perfectly with a rich umami matcha cloud.",
+    "customs": [
+      "Best of both worlds!"
+    ],
+    "tags": {
+      "temp": [
+        "iced"
+      ],
+      "base": [
+        "coffee",
+        "matcha"
+      ],
+      "sweetness": [
+        "medium",
+        "low"
+      ],
+      "texture": [
+        "foamy",
+        "standard"
+      ],
+      "flavor": [
+        "classic",
+        "dessert"
+      ],
+      "mood": [
+        "energizing",
+        "indulgent"
+      ]
+    },
+    "galleryTags": [
+      "coffee",
+      "matcha",
+      "special",
+      "iced"
+    ],
+    "galleryVibe": [
+      "classic",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "iced"
+    ],
+    "active": true
+  },
+  {
+    "name": "Cortado",
+    "price": "€3.70",
+    "type": "coffee",
+    "image": "images/hot_drinks/coffee/natural/standard/classic/energizing/cortado.png",
+    "desc": "Equal parts espresso & steamed milk.",
+    "customs": [],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "coffee"
+      ],
+      "sweetness": [
+        "low"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "coffee",
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Cappuccino",
+    "price": "€4.50",
+    "type": "coffee",
+    "image": "images/hot_drinks/coffee/balanced/foamy/classic/energizing/hot_cappuccino.png",
+    "desc": "Rich espresso topped with a deep layer of velvety foam.",
+    "customs": [
+      "Classic ratio"
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "coffee"
+      ],
+      "sweetness": [
+        "low",
+        "medium"
+      ],
+      "texture": [
+        "foamy"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing",
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "coffee",
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic",
+      "foamy"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Espresso",
+    "price": "€3.00",
+    "type": "coffee",
+    "image": "images/hot_drinks/coffee/natural/standard/classic/energizing/hot_espresso.png",
+    "desc": "A pure, intense shot of perfectly extracted coffee.",
+    "customs": [
+      "Double shot"
+    ],
+    "tags": {
+      "temp": [
+        "hot"
+      ],
+      "base": [
+        "coffee"
+      ],
+      "sweetness": [
+        "low"
+      ],
+      "texture": [
+        "standard"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "coffee",
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Hot Latte",
+    "price": "€4.50",
+    "type": "coffee",
+    "image": "images/hot_drinks/coffee/balanced/standard/classic/relaxed/hot_latte.png",
+    "desc": "Smooth espresso blended carefully with steamed milk.",
+    "customs": [
+      "Oat milk optional"
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "coffee"
+      ],
+      "sweetness": [
+        "low",
+        "medium"
+      ],
+      "texture": [
+        "standard",
+        "foamy"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "relaxed",
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "coffee",
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Hot Americano",
+    "price": "€3.80",
+    "type": "coffee",
+    "image": "images/hot_drinks/coffee/natural/refreshing/classic/energizing/hot_americano.png",
+    "desc": "Bold espresso drawn out with hot water for a crisp finish.",
+    "customs": [
+      "Room for milk optional"
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "coffee"
+      ],
+      "sweetness": [
+        "low"
+      ],
+      "texture": [
+        "refreshing"
+      ],
+      "flavor": [
+        "classic"
+      ],
+      "mood": [
+        "energizing"
+      ]
+    },
+    "galleryTags": [
+      "coffee",
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Hot Chocolate",
+    "price": "€3.90",
+    "type": "special",
+    "image": "images/hot_drinks/coffee/sweet/standard/dessert/indulgent/hot_chocolate.png",
+    "desc": "Decadently rich, melted artisan chocolate with steamed milk.",
+    "customs": [
+      "Perfect dessert drink"
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "coffee",
+        "matcha",
+        "hojicha"
+      ],
+      "sweetness": [
+        "high",
+        "medium"
+      ],
+      "texture": [
+        "standard",
+        "foamy"
+      ],
+      "flavor": [
+        "dessert"
+      ],
+      "mood": [
+        "indulgent",
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "special",
+      "hot"
+    ],
+    "galleryVibe": [
+      "dessert"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  },
+  {
+    "name": "Hot Hojicha Latte",
+    "price": "€5.20",
+    "type": "tea",
+    "image": "images/hot_drinks/nutty_roasty/balanced/standard/classic/relaxed/hot_hojicha_latte.png",
+    "desc": "Warm roasted green tea gracefully folded into steamed milk.",
+    "customs": [
+      "Earthy and comforting"
+    ],
+    "tags": {
+      "temp": [
+        "hot",
+        "any"
+      ],
+      "base": [
+        "hojicha"
+      ],
+      "sweetness": [
+        "low",
+        "medium"
+      ],
+      "texture": [
+        "standard",
+        "foamy"
+      ],
+      "flavor": [
+        "classic",
+        "dessert"
+      ],
+      "mood": [
+        "relaxed"
+      ]
+    },
+    "galleryTags": [
+      "hojicha",
+      "hot"
+    ],
+    "galleryVibe": [
+      "classic"
+    ],
+    "galleryTemp": [
+      "hot"
+    ],
+    "active": true
+  }
+]

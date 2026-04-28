@@ -56,10 +56,18 @@
             <div id="tab-menu" class="tab-content">
                 <div class="studio-section">
                     <div class="menu-header">
-                        <h3>🍵 Menu Items</h3>
-                        <p style="font-size:0.9rem;color:var(--text-light);margin-bottom:1rem;">
-                            View all drinks on the menu. Replace images by uploading your own or generating with AI.
-                        </p>
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
+                            <div>
+                                <h3>🍵 Menu Items</h3>
+                                <p style="font-size:0.9rem;color:var(--text-light);">
+                                    Edit names, prices, or toggle active status. Remember to save changes!
+                                </p>
+                            </div>
+                            <div style="display:flex; gap:0.5rem;">
+                                <button id="add-drink-btn" class="btn btn-outline" style="padding:0.4rem 0.8rem;font-size:0.85rem;">➕ Add Drink</button>
+                                <button id="save-menu-btn" class="btn btn-primary" style="padding:0.4rem 0.8rem;font-size:0.85rem;">💾 Save Menu to Server</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="menu-grid" id="menu-grid"></div>
                 </div>
