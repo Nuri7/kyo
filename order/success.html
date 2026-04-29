@@ -185,8 +185,10 @@
         const orderId = params.get('order') || localStorage.getItem('kyo_last_order') || '—';
         document.getElementById('order-id').textContent = orderId;
 
-        // Clear cart after successful order
-        localStorage.removeItem('kyo_cart');
+        // Only clear cart if we arrived via a Mollie redirect (order param in URL)
+        if (params.get('order')) {
+            localStorage.removeItem('kyo_cart');
+        }
 
         // 🎊 Mini confetti celebration
         function createConfetti() {

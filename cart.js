@@ -6,6 +6,16 @@
 const CART_KEY = 'kyo_cart';
 const API_BASE = 'https://kyoklubv.vercel.app';
 
+// HTML escape utility to prevent XSS
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+function escapeAttr(str) {
+    return str.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
 const Cart = {
     // ─── Data Access ────────────────────────────────
     get items() {
@@ -225,17 +235,17 @@ function createCartDrawer() {
         // Update checkout button state
         checkoutBtn.disabled = !nameInput.value.trim() || count === 0;
 
-        // Render items
+        // Render items (HTML-escaped to prevent XSS)
         itemsContainer.innerHTML = items.map(item => `
             <div class="cart-item">
                 <div class="cart-item-info">
-                    <span class="cart-item-name">${item.name}</span>
-                    <span class="cart-item-price">${item.price}</span>
+                    <span class="cart-item-name">${escapeHtml(item.name)}</span>
+                    <span class="cart-item-price">${escapeHtml(item.price)}</span>
                 </div>
                 <div class="cart-item-controls">
-                    <button class="cart-qty-btn" data-action="dec" data-name="${item.name}">−</button>
+                    <button class="cart-qty-btn" data-action="dec" data-name="${escapeAttr(item.name)}">−</button>
                     <span class="cart-qty">${item.qty}</span>
-                    <button class="cart-qty-btn" data-action="inc" data-name="${item.name}">+</button>
+                    <button class="cart-qty-btn" data-action="inc" data-name="${escapeAttr(item.name)}">+</button>
                 </div>
             </div>
         `).join('');
