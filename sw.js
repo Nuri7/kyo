@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kyo-oracle-v61';
+const CACHE_NAME = 'kyo-oracle-v62';
 const ASSETS_TO_CACHE = [
   "./",
   "./index.html",
@@ -9,6 +9,7 @@ const ASSETS_TO_CACHE = [
   "./drinks.json",
   "./drinks/index.html",
   "./order/success.html",
+  "./admin/orders.js",
   "./manifest.json",
   "./images/cold_drinks/coffee/balanced/foamy/classic/energizing/iced_americano_matcha_foam.png",
   "./images/cold_drinks/coffee/balanced/standard/classic/energizing/iced_latte.png",
