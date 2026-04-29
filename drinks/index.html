@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../cart.css">
     <link rel="manifest" href="../manifest.json">
     <meta name="theme-color" content="#FDFBF7">
     <style>
@@ -144,8 +145,24 @@
                                 ${getTemp(drink).map(t => `<span class="temp-badge ${t}">${t==='iced'?'🧊 Iced':'🔥 Hot'}</span>`).join('')}
                             </div>
                         </div>
+                        <button class="order-btn" data-drink='${JSON.stringify({name:drink.name,price:drink.price,image:drink.image}).replace(/'/g,"&#39;")}'>+ Add to Order</button>
                     </div>`;
                 grid.appendChild(card);
+            });
+
+            // Bind order buttons
+            grid.querySelectorAll('.order-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const drink = JSON.parse(btn.dataset.drink);
+                    Cart.add(drink);
+                    btn.textContent = '✓ Added!';
+                    btn.classList.add('added');
+                    setTimeout(() => {
+                        btn.textContent = '+ Add to Order';
+                        btn.classList.remove('added');
+                    }, 1200);
+                });
             });
         }
 
@@ -182,5 +199,6 @@
         }
         init();
     </script>
+    <script src="../cart.js"></script>
 </body>
 </html>

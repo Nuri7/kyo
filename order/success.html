@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Order Confirmed — KYŌ KLUB</title>
+    <meta name="description" content="Your KYŌ KLUB order has been placed successfully.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#FDFBF7">
+    <style>
+        .success-page {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .success-emoji {
+            font-size: 5rem;
+            animation: celebrationBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-bottom: 1rem;
+        }
+
+        @keyframes celebrationBounce {
+            0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+            50% { transform: scale(1.3) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .success-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--matcha-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .success-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .order-id-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid var(--matcha-green);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            width: 100%;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px var(--matcha-glow);
+        }
+
+        .order-id-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .order-id-value {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--matcha-dark);
+            letter-spacing: 2px;
+        }
+
+        .pickup-info {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            width: 100%;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pickup-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--matcha-dark);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pickup-info ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pickup-info li {
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .pickup-info li::before {
+            content: '→';
+            color: var(--matcha-green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .success-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .success-actions .btn {
+            border-radius: 14px;
+        }
+
+        .confetti-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+    <div class="bg-shape bg-shape-3"></div>
+
+    <div class="success-page">
+        <div class="success-emoji">🎉</div>
+        <h1 class="success-title">Order Placed!</h1>
+        <p class="success-subtitle">Your drinks are being prepared with care 🍵</p>
+
+        <div class="order-id-card">
+            <div class="order-id-label">Order Number</div>
+            <div id="order-id" class="order-id-value">—</div>
+        </div>
+
+        <div class="pickup-info">
+            <h3>📍 Pickup Instructions</h3>
+            <ul>
+                <li>Show this screen at the bar</li>
+                <li>Your order will be ready ASAP</li>
+                <li>Kinkerstraat 334, Amsterdam</li>
+            </ul>
+        </div>
+
+        <div class="success-actions">
+            <a href="../drinks/" class="btn btn-primary">Order More Drinks</a>
+            <a href="../" class="btn btn-outline">Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Extract order ID from URL or localStorage
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('order') || localStorage.getItem('kyo_last_order') || '—';
+        document.getElementById('order-id').textContent = orderId;
+
+        // Clear cart after successful order
+        localStorage.removeItem('kyo_cart');
+
+        // 🎊 Mini confetti celebration
+        function createConfetti() {
+            const colors = ['#8A9A5B', '#E8EED3', '#8C6A5D', '#FFD700', '#FF6B6B', '#4ECDC4'];
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'confetti-particle';
+                particle.style.cssText = `
+                    left: ${Math.random() * 100}vw;
+                    top: -10px;
+                    width: ${6 + Math.random() * 8}px;
+                    height: ${6 + Math.random() * 8}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+                    animation-duration: ${2 + Math.random() * 3}s;
+                    animation-delay: ${Math.random() * 0.8}s;
+                `;
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 5000);
+            }
+        }
+        createConfetti();
+    </script>
+</body>
+</html>
