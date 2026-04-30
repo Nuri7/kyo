@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kyo-oracle-v62';
+const CACHE_NAME = 'kyo-oracle-v63';
 const ASSETS_TO_CACHE = [
   "./",
   "./index.html",
@@ -69,6 +69,12 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  // Skip cross-origin requests (e.g. API calls to kyoklubv.vercel.app)
+  // and non-GET requests — these should never be intercepted by the SW
+  if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
+    return;
+  }
+
   event.respondWith(
     fetch(event.request)
       .then(response => {
