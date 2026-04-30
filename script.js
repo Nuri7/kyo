@@ -1,291 +1,445 @@
 // ==========================================
-// KYŌ Drink Oracle -> Configuration & Data
+// KYŌ Drink Oracle — Choicemaker Engine
+// Fast decision-tree: 3–5 clicks to your match
 // ==========================================
 
 let DRINKS_DB = [];
+let candidates = [];      // drinks remaining after each filter
+let currentStep = 0;
+let answers = [];          // [{ qIndex, value, label }]
+const TOTAL_STEPS = 5;
 
+// ──────────── Question Definitions ────────────
 
 const QUESTIONS = [
     {
-        id: "temp",
-        text: "Temperature preference today?",
-        weight: 0.20,
+        id: 'temp',
+        text: 'Hot or Iced?',
+        layout: 'two',           // 2 huge stacked buttons
         options: [
-            { text: "Hot & cozy", tags: { temp: "hot" }, icon: "🔥", image: "images/hot_drinks/nutty_roasty/natural/refreshing/dessert/chill/hojicha_hot_tea.png" },
-            { text: "Iced & refreshing", tags: { temp: "iced" }, icon: "🧊", image: "images/cold_drinks/earthy/sweet/foamy/fruity/indulgent/iced_cold_foam_strawberry.png" }
+            { value: 'hot',  emoji: '☕', label: 'Hot', sub: 'Warm & cozy' },
+            { value: 'iced', emoji: '🧊', label: 'Iced', sub: 'Cool & refreshing' }
         ]
     },
     {
-        id: "base",
-        text: "Main flavor base?",
-        weight: 0.30,
+        id: 'base',
+        text: 'Which base?',
+        layout: 'grid',          // 2×2 grid
         options: [
-            { text: "Earthy umami Matcha", tags: { base: "matcha" }, icon: "🍵", image: "images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_foam_jasmine.png" },
-            { text: "Nutty roasty Hojicha", tags: { base: "hojicha" }, icon: "🍂", image: "images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_iced_creamy.png" },
-            { text: "Classic Coffee", tags: { base: "coffee" }, icon: "☕", image: "images/cold_drinks/coffee/balanced/foamy/classic/energizing/iced_americano_matcha_foam.png" }
+            { value: 'matcha',  emoji: '🍵', label: 'Matcha',  sub: 'Green & earthy' },
+            { value: 'hojicha', emoji: '🍂', label: 'Hojicha', sub: 'Roasted & nutty' },
+            { value: 'coffee',  emoji: '☕', label: 'Coffee',  sub: 'Bold & classic' }
         ]
     },
     {
-        id: "sweetness",
-        text: "Sweetness level?",
-        weight: 0.15,
+        id: 'texture',
+        text: 'Texture?',
+        layout: 'grid',
         options: [
-            { text: "Sweet dessert vibes (fruity or indulgent)", tags: { sweetness: "high" }, icon: "🍰", image: "images/cold_drinks/earthy/sweet/foamy/dessert/indulgent/iced_cold_foam_vanilla.png" },
-            { text: "Lightly balanced", tags: { sweetness: "medium" }, icon: "🍯", image: "images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_coconut_cloud_matcha.png" },
-            { text: "Natural / barely sweet (umami focus)", tags: { sweetness: "low" }, icon: "🌿", image: "images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_iced_creamy.png" }
+            { value: 'foamy',      emoji: '☁️', label: 'Foamy & Cloudy', sub: 'Cold foam, clouds…' },
+            { value: 'standard',   emoji: '🥛', label: 'Smooth & Standard', sub: 'Classic latte' },
+            { value: 'refreshing', emoji: '🫧', label: 'Light & Fresh', sub: 'Soda-style, no milk' }
         ]
     },
     {
-        id: "texture",
-        text: "Texture craving?",
-        weight: 0.15,
+        id: 'flavor',
+        text: 'Flavor vibe?',
+        layout: 'grid',
         options: [
-            { text: "Foamy/cloudy/creamy", tags: { texture: "foamy" }, icon: "☁️", image: "images/cold_drinks/earthy/sweet/foamy/fruity/indulgent/iced_banana_matcha.png" },
-            { text: "Light & refreshing (bubbly or tea-like)", tags: { texture: "refreshing" }, icon: "🫧", image: "images/cold_drinks/earthy/natural/foamy/floral/energizing/iced_foam_rose.png" },
-            { text: "Standard latte", tags: { texture: "standard" }, icon: "🥛", image: "images/cold_drinks/nutty_roasty/balanced/foamy/floral/chill/iced_kocha_latte.png" }
+            { value: 'fruity',  emoji: '🍓', label: 'Fruity',  sub: 'Strawberry, mango…' },
+            { value: 'floral',  emoji: '🌸', label: 'Floral',  sub: 'Lavender, jasmine…' },
+            { value: 'dessert', emoji: '🍫', label: 'Dessert', sub: 'Vanilla, chocolate…' },
+            { value: 'classic', emoji: '🍃', label: 'Classic', sub: 'Pure & earthy' }
         ]
     },
     {
-        id: "flavor",
-        text: "Flavor twist?",
-        weight: 0.10,
+        id: 'sweetness',
+        text: 'Sweetness level?',
+        layout: 'grid',
         options: [
-            { text: "Fruity (strawberry/mango)", tags: { flavor: "fruity" }, icon: "🍓", image: "images/cold_drinks/earthy/sweet/standard/fruity/indulgent/iced_mango_matcha.png" },
-            { text: "Floral/coconut", tags: { flavor: "floral" }, icon: "🌸", image: "images/cold_drinks/earthy/balanced/foamy/floral/chill/iced_hojicha_latte_lavender_coldfoam.png" },
-            { text: "Chocolatey/roasty dessert", tags: { flavor: "dessert" }, icon: "🍫", image: "images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_vanilla_coldfoam.png" },
-            { text: "Pure classic", tags: { flavor: "classic" }, icon: "🍃", image: "images/hot_drinks/coffee/natural/standard/classic/energizing/flat_white.png" }
-        ]
-    },
-    {
-        id: "mood",
-        text: "Current mood?",
-        weight: 0.10,
-        options: [
-            { text: "Indulgent treat", tags: { mood: "indulgent" }, icon: "🎉", image: "images/cold_drinks/nutty_roasty/sweet/foamy/dessert/indulgent/iced_hojicha_iced_creamy.png" },
-            { text: "Energizing", tags: { mood: "energizing" }, icon: "⚡", image: "images/hot_drinks/coffee/natural/standard/classic/energizing/cortado.png" },
-            { text: "Chill & relaxed", tags: { mood: "relaxed" }, icon: "🧘", image: "images/hot_drinks/surprise/natural/refreshing/classic/chill/kocha_hot_tea.png" }
+            { value: 'high',   emoji: '🍰', label: 'Extra Sweet', sub: 'Full indulgence' },
+            { value: 'medium', emoji: '🍯', label: 'Balanced',    sub: 'Just right' },
+            { value: 'low',    emoji: '🌿', label: 'Light / None', sub: 'Natural flavors' }
         ]
     }
 ];
 
-// ==========================================
-// Application State
-// ==========================================
-let currentQuestionIndex = 0;
-let userAnswers = {}; // { questionId: tagString }
+// ──────────── DOM References ────────────
 
-// DOM Elements
-const screens = {
-    home: document.getElementById('home-screen'),
-    quiz: document.getElementById('quiz-screen'),
-    result: document.getElementById('result-screen')
-};
+const $ = id => document.getElementById(id);
 
 const dom = {
-    startBtn: document.getElementById('start-btn'),
-    nextBtn: document.getElementById('next-btn'),
-    backBtn: document.getElementById('back-btn'),
-    restartBtn: document.getElementById('restart-btn'),
-    
-    qNum: document.getElementById('current-q-num'),
-    qProgress: document.getElementById('progress-fill'),
-    qText: document.getElementById('question-text'),
-    optionsContainer: document.getElementById('options-container'),
-    
-    toast: document.getElementById('toast')
+    homeScreen:   $('home-screen'),
+    quizScreen:   $('quiz-screen'),
+    resultScreen: $('result-screen'),
+
+    startBtn:     $('start-btn'),
+    backBtn:      $('back-btn'),
+    restartBtns:  document.querySelectorAll('.restart-btn'),
+
+    dots:         $('progress-dots'),
+    stepLabel:    $('step-label'),
+    qText:        $('question-text'),
+    optionsWrap:  $('options-container'),
+
+    // Result elements
+    singleResult:  $('single-result'),
+    multiResult:   $('multi-result'),
+    matchCards:    $('match-cards'),
+    destinyBtn:   $('destiny-btn'),
+
+    winnerImage:  $('winner-image'),
+    winnerName:   $('winner-name'),
+    winnerPrice:  $('winner-price'),
+    winnerDesc:   $('winner-desc'),
+    winnerReason: $('winner-reason'),
+    winnerTags:   $('winner-tags'),
+
+    toast:        $('toast')
 };
 
-// ==========================================
-// Controllers
-// ==========================================
+// ──────────── Screen Management ────────────
 
-function switchScreen(screenKey) {
-    Object.values(screens).forEach(s => {
+function showScreen(name) {
+    [dom.homeScreen, dom.quizScreen, dom.resultScreen].forEach(s => {
         s.classList.remove('active');
         s.classList.add('hidden');
     });
-    screens[screenKey].classList.remove('hidden');
-    screens[screenKey].classList.add('active');
+    const target = name === 'home' ? dom.homeScreen
+                 : name === 'quiz' ? dom.quizScreen
+                 : dom.resultScreen;
+    target.classList.remove('hidden');
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' });
 }
+
+// ──────────── Init ────────────
 
 async function init() {
     try {
         const res = await fetch('drinks.json');
         const data = await res.json();
         DRINKS_DB = data.filter(d => d.active !== false);
-    } catch(e) {
+    } catch (e) {
         console.error('Failed to load drinks.json', e);
     }
 
-    dom.startBtn.addEventListener('click', () => {
-        currentQuestionIndex = 0;
-        userAnswers = {};
-        switchScreen('quiz');
-        renderQuestion();
-    });
+    dom.startBtn.addEventListener('click', startQuiz);
+    dom.backBtn.addEventListener('click', goBack);
+    dom.restartBtns.forEach(btn => btn.addEventListener('click', () => showScreen('home')));
+    dom.destinyBtn?.addEventListener('click', destinyRoll);
 
-    dom.backBtn.addEventListener('click', () => {
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            renderQuestion();
-        } else {
-            switchScreen('home');
-        }
-    });
+    // Start marquee animation
+    startMarquee();
+}
 
-    dom.restartBtn.addEventListener('click', () => {
-        switchScreen('home');
+function startQuiz() {
+    currentStep = 0;
+    answers = [];
+    candidates = [...DRINKS_DB];
+    showScreen('quiz');
+    renderStep();
+}
+
+// ──────────── Filtering Logic ────────────
+
+function filterCandidates(questionId, value) {
+    if (value === '_any') return; // "Surprise me" — skip filter
+
+    candidates = candidates.filter(drink => {
+        const drinkTags = drink.tags[questionId];
+        if (!drinkTags) return true;
+        return drinkTags.includes(value);
     });
 }
 
-function renderQuestion() {
-    const q = QUESTIONS[currentQuestionIndex];
-    
-    // Update Progress
-    dom.qNum.textContent = currentQuestionIndex + 1;
-    const progressPercent = ((currentQuestionIndex) / QUESTIONS.length) * 100;
-    dom.qProgress.style.width = `${progressPercent}%`;
+function shouldSkipSweetness() {
+    return candidates.length <= 2;
+}
 
-    // Render Text & Options
+// ──────────── Render Question ────────────
+
+function renderStep() {
+    const q = QUESTIONS[currentStep];
+
+    // Skip sweetness if ≤2 drinks remain
+    if (q.id === 'sweetness' && shouldSkipSweetness()) {
+        showResults();
+        return;
+    }
+
+    // Progress dots
+    renderDots();
+    dom.stepLabel.textContent = `Question ${currentStep + 1} of ${TOTAL_STEPS}`;
+
+    // Question text
     dom.qText.textContent = q.text;
-    dom.optionsContainer.innerHTML = '';
-    
-    q.options.forEach((opt, idx) => {
-        const card = document.createElement('div');
-        card.className = 'option-card';
-        card.innerHTML = `
-            <img src="${opt.image}" class="option-bg" alt="Option Image">
-            <div class="option-overlay"></div>
-            <div class="option-content">
-                <span class="option-icon">${opt.icon}</span>
-                <span class="option-text">${opt.text}</span>
-            </div>
+    dom.qText.classList.remove('slide-in');
+    void dom.qText.offsetWidth; // force reflow
+    dom.qText.classList.add('slide-in');
+
+    // Options
+    dom.optionsWrap.innerHTML = '';
+    dom.optionsWrap.className = `options-wrap layout-${q.layout}`;
+    dom.optionsWrap.classList.remove('slide-in');
+    void dom.optionsWrap.offsetWidth;
+    dom.optionsWrap.classList.add('slide-in');
+
+    q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.style.animationDelay = `${i * 0.06}s`;
+        btn.innerHTML = `
+            <span class="choice-emoji">${opt.emoji}</span>
+            <span class="choice-label">${opt.label}</span>
+            <span class="choice-sub">${opt.sub}</span>
         `;
-        
-        if (userAnswers[q.id] && Object.values(opt.tags)[0] === userAnswers[q.id]) {
-            card.classList.add('selected');
+
+        // Restore selection if going back
+        const prev = answers.find(a => a.qIndex === currentStep);
+        if (prev && prev.value === opt.value) {
+            btn.classList.add('selected');
         }
 
-        card.addEventListener('click', () => {
-            if (card.classList.contains('selected')) return;
-
-            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-            
-            userAnswers[q.id] = Object.values(opt.tags)[0];
-            
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < QUESTIONS.length) {
-                    renderQuestion();
-                } else {
-                    generateResult();
-                }
-            }, 300);
-        });
-
-        dom.optionsContainer.appendChild(card);
+        btn.addEventListener('click', () => selectOption(opt, i));
+        dom.optionsWrap.appendChild(btn);
     });
 }
 
-function generateResult() {
-    // Fill final progress bar chunk briefly before switching
-    dom.qProgress.style.width = `100%`;
-    
+function renderDots() {
+    dom.dots.innerHTML = '';
+    for (let i = 0; i < TOTAL_STEPS; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'dot';
+        if (i < currentStep) dot.classList.add('done');
+        if (i === currentStep) dot.classList.add('active');
+        dom.dots.appendChild(dot);
+    }
+}
+
+// ──────────── Selection Handler ────────────
+
+function selectOption(opt, idx) {
+    // Visual feedback
+    document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.choice-btn')[idx].classList.add('selected');
+
+    // Record answer (replace if revisiting)
+    answers = answers.filter(a => a.qIndex !== currentStep);
+    answers.push({ qIndex: currentStep, questionId: QUESTIONS[currentStep].id, value: opt.value, label: opt.label });
+
+    // Rebuild candidates from scratch (clean slate each time for back-navigation correctness)
+    candidates = [...DRINKS_DB];
+    answers.forEach(a => filterCandidates(a.questionId, a.value));
+
+    // Advance
     setTimeout(() => {
-        calculateScores();
-        switchScreen('result');
-    }, 400);
+        currentStep++;
+        if (currentStep >= QUESTIONS.length) {
+            showResults();
+        } else {
+            renderStep();
+        }
+    }, 250);
 }
 
-function calculateScores() {
-    // Math logic for scoring
-    let scores = DRINKS_DB.map(drink => {
-        let score = 0;
-        QUESTIONS.forEach(q => {
-            const userAnswerVal = userAnswers[q.id];
-            if (!userAnswerVal) return;
+// ──────────── Back Navigation ────────────
 
-            const drinkTagsForCategory = drink.tags[q.id];
-            
-            // If the drink possesses this tag in its array, add the weight points
-            // 'any' tags pass the check automatically for temperature
-            if (drinkTagsForCategory && (drinkTagsForCategory.includes(userAnswerVal) || (q.id === 'temp' && userAnswerVal === 'any'))) {
-                score += q.weight;
-            }
-        });
-        
-        return { drink, score };
-    });
+function goBack() {
+    if (currentStep > 0) {
+        currentStep--;
+        // Remove answer for current step if exists
+        answers = answers.filter(a => a.qIndex !== currentStep);
+        // Rebuild candidates
+        candidates = [...DRINKS_DB];
+        answers.forEach(a => filterCandidates(a.questionId, a.value));
+        renderStep();
+    } else {
+        showScreen('home');
+    }
+}
 
-    // Sort by strict mathematical tag scoring
-    scores.sort((a, b) => b.score - a.score);
-    
-    // --- Oracle Random Tie-Breaker ---
-    // If multiple drinks perfectly match your vibe input identically, the Oracle lets destiny decide!
-    const topScore = scores[0].score;
-    const tiedTopDrinks = scores.filter(s => s.score === topScore);
-    const topDrink = tiedTopDrinks[Math.floor(Math.random() * tiedTopDrinks.length)].drink;
-    
-    // Ensure the backups are populated by the next best variants that aren't the winner
-    const allRankedDrinks = scores.map(s => s.drink).filter(d => d.name !== topDrink.name);
-    const backupDrinks = [allRankedDrinks[0], allRankedDrinks[1]];
+// ──────────── Results ────────────
 
-    // --- Analytics Tracking ---
-    if (window.posthog) {
-        // Creates a uniquely named event like "Recommended: Matcha Latte"
-        // This means every drink will appear as its own separate event in the dropdown!
+function showResults() {
+    // If 0 candidates, relax last filter
+    if (candidates.length === 0) {
+        const lastAnswer = answers[answers.length - 1];
+        if (lastAnswer) {
+            answers = answers.filter(a => a.qIndex !== lastAnswer.qIndex);
+            candidates = [...DRINKS_DB];
+            answers.forEach(a => filterCandidates(a.questionId, a.value));
+        }
+        // Still 0? Show all as fallback
+        if (candidates.length === 0) candidates = [...DRINKS_DB];
+    }
+
+    // PostHog analytics
+    const topDrink = candidates[0];
+    if (window.posthog && topDrink) {
         posthog.capture(`Recommended: ${topDrink.name}`, {
             drink_price: topDrink.price,
-            user_mood: userAnswers.mood,
-            user_flavor: userAnswers.flavor,
-            user_sweetness: userAnswers.sweetness
+            answers: answers.map(a => `${a.questionId}=${a.value}`).join(','),
+            total_matches: candidates.length
         });
-        
-        // Also fire a general completion event specifically designed for pie charts
-        posthog.capture('Quiz Completed', {
-            drink_name: topDrink.name
-        });
+        posthog.capture('Quiz Completed', { drink_name: topDrink.name });
     }
 
-    renderResultUI(topDrink, backupDrinks);
-}
+    showScreen('result');
 
-function renderResultUI(drink, backups) {
-    const winnerImg = document.getElementById('winner-image');
-    if (drink.image) {
-        winnerImg.src = drink.image;
-        winnerImg.classList.remove('hidden');
+    if (candidates.length === 1) {
+        renderSingleResult(candidates[0]);
     } else {
-        winnerImg.classList.add('hidden');
+        renderMultiResult(candidates.slice(0, 6)); // cap at 6
     }
-
-    document.getElementById('winner-name').textContent = drink.name;
-    document.getElementById('winner-price').textContent = drink.price;
-
-    // Reason generation
-    const reasons = [];
-    if (userAnswers.temp === 'iced') reasons.push("it's cool & refreshing");
-    if (userAnswers.temp === 'hot') reasons.push("it's warm & cozy");
-    if (userAnswers.base === 'matcha') reasons.push("it has that umami kick");
-    if (userAnswers.sweetness === 'high') reasons.push("it hits the sweet spot perfectly");
-    if (userAnswers.texture === 'foamy') reasons.push("it's got that gorgeous cloud texture");
-    if (userAnswers.flavor === 'fruity') reasons.push("the fruity twist is top tier");
-    
-    document.getElementById('winner-reason').textContent = `Because you asked for something ${userAnswers.flavor === 'dessert' ? 'indulgent' : 'special'}, and ${reasons[0] ? reasons.join(' and ') : 'it just fits your vibe perfectly'}!`;
 }
 
-function shareResult() {
-    const drinkName = document.getElementById('winner-name').textContent;
-    const text = `I just got matched with the ${drinkName} at KYŌ-KLUB! 🍵✨ Find your match here: [insert link]`;
-    
-    navigator.clipboard.writeText(text).then(() => {
-        dom.toast.classList.add('show');
-        setTimeout(() => {
-            dom.toast.classList.remove('show');
-        }, 3000);
+function renderSingleResult(drink) {
+    dom.singleResult.classList.remove('hidden');
+    dom.multiResult.classList.add('hidden');
+    fillWinnerCard(drink);
+}
+
+function renderMultiResult(drinks) {
+    dom.singleResult.classList.add('hidden');
+    dom.multiResult.classList.remove('hidden');
+    dom.destinyBtn.classList.remove('hidden');
+
+    dom.matchCards.innerHTML = '';
+    drinks.forEach((drink, i) => {
+        const card = document.createElement('div');
+        card.className = 'match-card glass-panel-sm';
+        card.style.animationDelay = `${i * 0.1}s`;
+        card.innerHTML = `
+            <div class="match-card-img">
+                <img src="${drink.image}" alt="${drink.name}" loading="lazy">
+            </div>
+            <div class="match-card-info">
+                <h3>${drink.name}</h3>
+                <span class="match-price">${drink.price}</span>
+                <p>${drink.desc}</p>
+            </div>
+        `;
+        card.addEventListener('click', () => {
+            dom.multiResult.classList.add('hidden');
+            dom.singleResult.classList.remove('hidden');
+            fillWinnerCard(drink);
+        });
+        dom.matchCards.appendChild(card);
     });
 }
 
-// Start
+function fillWinnerCard(drink) {
+    dom.winnerImage.src = drink.image || '';
+    dom.winnerImage.style.display = drink.image ? 'block' : 'none';
+    dom.winnerName.textContent = drink.name;
+    dom.winnerPrice.textContent = drink.price;
+    dom.winnerDesc.textContent = drink.desc;
+
+    // Tags
+    dom.winnerTags.innerHTML = '';
+    const tempTag = drink.tags.temp.includes('iced') ? '🧊 Iced' : '🔥 Hot';
+    const baseTag = drink.tags.base[0];
+    [tempTag, baseTag].forEach(t => {
+        const span = document.createElement('span');
+        span.className = 'result-tag';
+        span.textContent = t.charAt(0).toUpperCase() + t.slice(1);
+        dom.winnerTags.appendChild(span);
+    });
+
+    // "Why it fits you" text
+    const reasons = [];
+    answers.forEach(a => {
+        switch (a.questionId) {
+            case 'temp':
+                reasons.push(a.value === 'iced' ? 'something cool & refreshing' : 'something warm & cozy');
+                break;
+            case 'base':
+                if (a.value !== '_any') reasons.push(`a ${a.label.toLowerCase()} base`);
+                break;
+            case 'texture':
+                reasons.push(`${a.label.toLowerCase()} texture`);
+                break;
+            case 'flavor':
+                reasons.push(`${a.label.toLowerCase()} flavors`);
+                break;
+            case 'sweetness':
+                reasons.push(`${a.label.toLowerCase()} sweetness`);
+                break;
+        }
+    });
+    const reasonText = reasons.length > 0
+        ? `You wanted ${reasons.join(', ')} — and ${drink.name} delivers exactly that.`
+        : `The Oracle has spoken — ${drink.name} is your perfect match.`;
+    dom.winnerReason.textContent = reasonText;
+
+    // Animate in
+    dom.singleResult.classList.remove('reveal');
+    void dom.singleResult.offsetWidth;
+    dom.singleResult.classList.add('reveal');
+}
+
+// ──────────── Destiny Roll ✨ ────────────
+
+function destinyRoll() {
+    const cards = dom.matchCards.querySelectorAll('.match-card');
+    if (cards.length === 0) return;
+
+    dom.destinyBtn.classList.add('hidden');
+
+    // Rapid highlight cycle
+    let cycles = 0;
+    const maxCycles = 15 + Math.floor(Math.random() * 10);
+    let idx = 0;
+
+    const interval = setInterval(() => {
+        cards.forEach(c => c.classList.remove('destiny-highlight'));
+        cards[idx % cards.length].classList.add('destiny-highlight');
+        idx++;
+        cycles++;
+
+        if (cycles >= maxCycles) {
+            clearInterval(interval);
+            const winner = candidates[idx % candidates.length];
+            setTimeout(() => {
+                cards.forEach(c => c.classList.remove('destiny-highlight'));
+                dom.multiResult.classList.add('hidden');
+                dom.singleResult.classList.remove('hidden');
+                fillWinnerCard(winner);
+            }, 400);
+        }
+    }, 80 + cycles * 8); // gradually slows down
+}
+
+// ──────────── Share ────────────
+
+function copyResult() {
+    const name = dom.winnerName.textContent;
+    const text = `🍵 The KYŌ Oracle matched me with: ${name}!\nFind your perfect drink → https://nuri7.github.io/kyo/`;
+    navigator.clipboard.writeText(text).then(() => {
+        dom.toast.classList.add('show');
+        setTimeout(() => dom.toast.classList.remove('show'), 2500);
+    });
+}
+
+// ──────────── Marquee Animation ────────────
+
+function startMarquee() {
+    const marquee = document.querySelector('.drink-marquee');
+    if (!marquee) return;
+
+    let offset = 0;
+    const speed = 0.5;
+    const totalWidth = marquee.scrollWidth / 2;
+
+    function tick() {
+        offset -= speed;
+        if (Math.abs(offset) >= totalWidth) offset = 0;
+        marquee.style.transform = `translateX(${offset}px)`;
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+}
+
+// ──────────── Boot ────────────
 init();
