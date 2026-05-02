@@ -13,36 +13,41 @@
     <link rel="manifest" href="../manifest.json">
     <meta name="theme-color" content="#FDFBF7">
     <style>
-        .drinks-page { width:100%; max-width:1200px; margin:0 auto; padding:1.5rem 1.5rem 4rem; min-height:100vh; }
+        .drinks-page { width:100%; max-width:1200px; margin:0 auto; padding:1.5rem 1.5rem 5rem; min-height:100vh; }
         .drinks-hero { display:flex; align-items:center; justify-content:center; position:relative; margin-bottom:1.5rem; padding:0.8rem 0; }
-        .drinks-hero .klub-title { font-size:1.8rem; margin:0; }
-        .back-home { position:absolute; left:0; display:inline-flex; align-items:center; gap:0.4rem; color:var(--matcha-dark); text-decoration:none; font-weight:600; font-size:0.9rem; transition:var(--trans-fast); opacity:0.7; }
+        .drinks-hero .klub-title { font-size:1.5rem; margin:0; letter-spacing:1px; }
+        .back-home { position:absolute; left:0; display:inline-flex; align-items:center; gap:0.4rem; color:var(--text-light); text-decoration:none; font-weight:600; font-size:0.9rem; transition:var(--trans-fast); opacity:0.7; }
         .back-home:hover { opacity:1; transform:translateX(-3px); }
 
-        .filter-bar { display:flex; justify-content:center; flex-wrap:wrap; gap:0.6rem; margin-bottom:0.8rem; }
-        .filter-btn { font-family:var(--font-heading); font-weight:700; font-size:0.85rem; padding:0.55rem 1.3rem; border-radius:50px; border:2px solid rgba(0,0,0,0.08); background:rgba(255,255,255,0.6); color:var(--text-light); cursor:pointer; transition:var(--trans-fast); text-transform:uppercase; letter-spacing:0.5px; }
+        .filter-bar { display:flex; flex-wrap:nowrap; overflow-x:auto; gap:0.6rem; margin-bottom:1rem; padding-bottom:0.5rem; justify-content:flex-start; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+        .filter-bar::-webkit-scrollbar { display:none; }
+        .filter-btn { flex-shrink:0; font-family:var(--font-heading); font-weight:700; font-size:0.85rem; padding:0.55rem 1.3rem; border-radius:50px; border:2px solid rgba(0,0,0,0.08); background:rgba(255,255,255,0.6); color:var(--text-light); cursor:pointer; transition:var(--trans-fast); text-transform:uppercase; letter-spacing:0.5px; }
         .filter-btn:hover { border-color:var(--matcha-green); color:var(--matcha-dark); background:rgba(255,255,255,0.9); }
         .filter-btn.active { background:var(--matcha-green); color:#fff; border-color:var(--matcha-green); box-shadow:0 4px 15px var(--matcha-glow); }
 
-        /* Sub-filter bar */
-        .sub-filter-bar { display:flex; justify-content:center; flex-wrap:wrap; gap:0.45rem; margin-bottom:2rem; min-height:34px; transition:opacity 0.3s ease; }
-        .sub-filter-bar.hidden { opacity:0; pointer-events:none; min-height:0; margin:0; }
-        .sub-btn { font-family:var(--font-body); font-weight:600; font-size:0.75rem; padding:0.35rem 1rem; border-radius:50px; border:1.5px solid rgba(0,0,0,0.06); background:rgba(255,255,255,0.5); color:var(--text-light); cursor:pointer; transition:var(--trans-fast); letter-spacing:0.3px; }
+        .sub-filter-bar { display:flex; flex-wrap:nowrap; overflow-x:auto; gap:0.45rem; margin-bottom:2rem; min-height:34px; transition:opacity 0.3s ease; justify-content:flex-start; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:0.5rem; }
+        .sub-filter-bar::-webkit-scrollbar { display:none; }
+        .sub-filter-bar.hidden { opacity:0; pointer-events:none; min-height:0; margin:0; padding:0; }
+        .sub-btn { flex-shrink:0; font-family:var(--font-body); font-weight:600; font-size:0.75rem; padding:0.35rem 1rem; border-radius:50px; border:1px solid rgba(0,0,0,0.04); background:rgba(255,255,255,0.4); color:var(--text-light); cursor:pointer; transition:var(--trans-fast); letter-spacing:0.3px; }
         .sub-btn:hover { border-color:var(--hojicha-brown); color:var(--text-main); background:rgba(255,255,255,0.85); }
         .sub-btn.active { background:var(--hojicha-brown); color:#fff; border-color:var(--hojicha-brown); box-shadow:0 3px 10px rgba(140,106,93,0.3); }
 
+        @media (min-width:768px) {
+            .filter-bar, .sub-filter-bar { flex-wrap:wrap; overflow-x:visible; justify-content:center; }
+        }
+
         .drinks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:2rem; }
-        .drink-card { background:var(--glass-bg); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--glass-border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-soft); transition:transform 0.3s ease,box-shadow 0.3s ease; cursor:default; opacity:0; transform:translateY(20px); animation:cardReveal 0.5s ease forwards; }
+        .drink-card { background:var(--glass-bg); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--glass-border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-soft); transition:transform 0.3s ease,box-shadow 0.3s ease; cursor:default; opacity:0; transform:translateY(20px); animation:cardReveal 0.5s ease forwards; display:flex; flex-direction:column; }
         .drink-card:hover { transform:translateY(-6px) scale(1.02); box-shadow:var(--shadow-hover); }
         @keyframes cardReveal { to { opacity:1; transform:translateY(0); } }
         .drink-card-img { width:100%; aspect-ratio:3/4; object-fit:cover; display:block; background:var(--bg-cream-dark); transition:transform 0.5s ease; }
         .drink-card:hover .drink-card-img { transform:scale(1.05); }
         .drink-card-img-wrap { overflow:hidden; position:relative; }
-        .drink-card-body { padding:1.2rem 1.4rem 1.5rem; }
+        .drink-card-body { padding:1.2rem 1.4rem; display:flex; flex-direction:column; flex:1; }
         .drink-card-name { font-family:var(--font-heading); font-weight:800; font-size:1.15rem; color:var(--text-main); margin-bottom:0.3rem; line-height:1.25; }
-        .drink-card-desc { font-size:0.88rem; color:var(--text-light); line-height:1.4; margin-bottom:0.8rem; font-style:italic; }
+        .drink-card-desc { font-size:0.88rem; color:var(--text-light); line-height:1.4; margin-bottom:0.8rem; font-style:italic; flex:1; }
+        .drink-card-meta { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem; }
         .drink-card-price { font-family:var(--font-heading); font-weight:900; font-size:1.1rem; color:var(--matcha-green); }
-        .drink-card-meta { display:flex; align-items:center; justify-content:space-between; }
         .temp-badges { display:flex; gap:0.35rem; }
         .temp-badge { font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; padding:0.2rem 0.55rem; border-radius:4px; }
         .temp-badge.hot { background:#ffe4e1; color:#c0392b; }
@@ -51,8 +56,7 @@
         .footer-drinks { text-align:center; margin-top:4rem; padding-top:2rem; border-top:1px solid rgba(0,0,0,0.06); color:var(--text-light); font-size:0.85rem; opacity:0.7; }
         @media (max-width:600px) {
             .drinks-grid { grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; }
-            .drinks-hero .klub-title { font-size:2rem; }
-            .drink-card-body { padding:0.8rem 1rem 1.2rem; }
+            .drink-card-body { padding:0.8rem 1rem; }
             .drink-card-name { font-size:1rem; }
         }
     </style>
@@ -135,17 +139,17 @@
                 card.innerHTML = `
                     <div class="drink-card-img-wrap">
                         <img class="drink-card-img" src="${drink.image}" alt="${drink.name}" loading="lazy">
+                        <button class="order-btn glass-add-btn" data-drink='${JSON.stringify({name:drink.name,price:drink.price,image:drink.image}).replace(/'/g,"&#39;")}'>+</button>
                     </div>
                     <div class="drink-card-body">
-                        <div class="drink-card-name">${drink.name}</div>
-                        <div class="drink-card-desc">${drink.desc}</div>
                         <div class="drink-card-meta">
                             <div class="drink-card-price">${drink.price}</div>
                             <div class="temp-badges">
                                 ${getTemp(drink).map(t => `<span class="temp-badge ${t}">${t==='iced'?'🧊 Iced':'🔥 Hot'}</span>`).join('')}
                             </div>
                         </div>
-                        <button class="order-btn" data-drink='${JSON.stringify({name:drink.name,price:drink.price,image:drink.image}).replace(/'/g,"&#39;")}'>+ Add to Order</button>
+                        <div class="drink-card-name">${drink.name}</div>
+                        <div class="drink-card-desc">${drink.desc}</div>
                     </div>`;
                 grid.appendChild(card);
             });

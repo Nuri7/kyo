@@ -202,7 +202,7 @@ async function runBrowserTests() {
         const btnCount = await page.$$eval('.order-btn', btns => btns.length);
         assert(btnCount > 0, `No order buttons found (expected > 0, got ${btnCount})`);
         const firstText = await page.$eval('.order-btn', btn => btn.textContent.trim());
-        assert(firstText === '+ Add to Order', `Button text: "${firstText}"`);
+        assert(firstText === '+', `Button text: "${firstText}"`);
         console.log(`    → Found ${btnCount} order buttons`);
     });
 
@@ -224,15 +224,15 @@ async function runBrowserTests() {
     });
 
     // ─── Test: Add first drink to cart ──────────────────
-    await test('Clicking "Add to Order" adds item to cart', async () => {
+    await test('Clicking "+" adds item to cart', async () => {
         await page.click('.order-btn');
         await page.waitForFunction(() => {
             const btn = document.querySelector('.order-btn');
-            return btn && btn.textContent.trim().includes('Added');
+            return btn && btn.textContent.trim().includes('✓');
         }, { timeout: 3000 });
         
         const btnText = await page.$eval('.order-btn', btn => btn.textContent.trim());
-        assert(btnText.includes('Added'), `Button should show "Added!", got: "${btnText}"`);
+        assert(btnText.includes('✓'), `Button should show "✓", got: "${btnText}"`);
         await page.screenshot({ path: `${SCREENSHOTS_DIR}/02_item_added.png` });
     });
 
