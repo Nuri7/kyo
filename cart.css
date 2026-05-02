@@ -374,6 +374,14 @@
     border-radius: 14px !important;
     padding: 1rem !important;
     font-size: 1.1rem !important;
+    transition: all 0.3s ease;
+}
+
+.cart-checkout-btn.locked {
+    background: rgba(0, 0, 0, 0.08) !important;
+    color: var(--text-light) !important;
+    box-shadow: none !important;
+    transform: none !important;
 }
 
 .cart-error {

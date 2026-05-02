@@ -166,8 +166,8 @@ function createCartDrawer() {
                 <label for="cart-customer-name">Your name (for pickup)</label>
                 <input id="cart-customer-name" type="text" placeholder="e.g. Yuki" maxlength="50" autocomplete="given-name" />
             </div>
-            <button id="cart-checkout-btn" class="btn btn-primary cart-checkout-btn">
-                Pay with Mollie
+            <button id="cart-checkout-btn" class="btn btn-primary cart-checkout-btn locked">
+                Pay
             </button>
             <p id="cart-error" class="cart-error"></p>
         </div>
@@ -185,6 +185,7 @@ function createCartDrawer() {
     nameInput.addEventListener('input', () => {
         errorEl.textContent = '';
         nameInput.classList.remove('input-error');
+        checkoutBtn.classList.toggle('locked', !nameInput.value.trim() || Cart.count === 0);
     });
 
     checkoutBtn.addEventListener('click', async () => {
@@ -206,7 +207,7 @@ function createCartDrawer() {
         } catch (e) {
             errorEl.textContent = e.message || 'Something went wrong';
             checkoutBtn.disabled = false;
-            checkoutBtn.textContent = 'Pay with Mollie';
+            checkoutBtn.textContent = 'Pay';
         }
     });
 
@@ -236,6 +237,8 @@ function createCartDrawer() {
         emptyMsg.style.display = 'none';
         footer.style.display = 'flex';
         totalEl.textContent = Cart.totalFormatted;
+        
+        checkoutBtn.classList.toggle('locked', !nameInput.value.trim() || count === 0);
 
         // Render items (HTML-escaped to prevent XSS)
         itemsContainer.innerHTML = items.map(item => `
