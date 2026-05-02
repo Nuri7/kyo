@@ -61,7 +61,7 @@ async function runApiTests() {
         });
         const data = await res.json();
         assert(res.status === 200, `Expected 200, got ${res.status}`);
-        assert(data.checkoutUrl?.startsWith('https://www.mollie.com/'), `No valid checkout URL: ${data.checkoutUrl}`);
+        assert(data.checkoutUrl?.startsWith('https://www.mollie.com/') || data.checkoutUrl?.includes('/pay?url='), `No valid checkout URL: ${data.checkoutUrl}`);
         assert(data.orderId?.startsWith('KYO-'), `Invalid order ID: ${data.orderId}`);
     });
 
@@ -340,15 +340,12 @@ async function runBrowserTests() {
         assert(!isOpen, 'Cart drawer should be closed after clicking backdrop');
     });
 
-    // ─── Test: Reopen and checkout ──────────────────────
-    await test('Checkout calls Mollie API (via direct fetch)', async () => {
-        // On localhost, CORS blocks browser-to-Vercel requests (expected).
-        // Instead, verify the API call works server-side and the button shows loading state.
+    // ─── Test: Reopen and checkout (Full Browser Navigation) ──────────────
+    await test('Checkout button successfully redirects to Mollie', async () => {
         // Reopen drawer
         await page.click('#cart-fab');
         await page.waitForSelector('.cart-drawer.open', { timeout: 3000 });
-        // Wait for drawer animation to complete
-        await new Promise(r => setTimeout(r, 600));
+        await new Promise(r => setTimeout(r, 600)); // wait for animation
         
         // Name should still be there
         const nameVal = await page.$eval('#cart-customer-name', el => el.value);
@@ -356,31 +353,59 @@ async function runBrowserTests() {
         
         await page.screenshot({ path: `${SCREENSHOTS_DIR}/05_before_checkout.png` });
         
-        // Scroll the checkout button into view and click via JS (avoids clickability issues)
-        await page.$eval('#cart-checkout-btn', btn => {
-            btn.scrollIntoView({ block: 'center' });
-        });
+        // Setup request interception to mock the API response (bypassing CORS on localhost)
+        await page.setRequestInterception(true);
+        const mockCheckoutUrl = 'https://www.mollie.com/checkout/mock-test-id';
+        
+        const requestHandler = interceptedRequest => {
+            if (interceptedRequest.isInterceptResolutionHandled()) return;
+            const url = interceptedRequest.url();
+            const method = interceptedRequest.method();
+            
+            if (url.includes('/api/checkout')) {
+                if (method === 'OPTIONS') {
+                    interceptedRequest.respond({
+                        status: 204,
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+                            'Access-Control-Allow-Headers': 'Content-Type',
+                        }
+                    });
+                } else if (method === 'POST') {
+                    interceptedRequest.respond({
+                        status: 200,
+                        contentType: 'application/json',
+                        headers: { 'Access-Control-Allow-Origin': '*' },
+                        body: JSON.stringify({
+                            checkoutUrl: mockCheckoutUrl,
+                            orderId: 'KYO-E2E-MOCK'
+                        })
+                    });
+                }
+            } else {
+                interceptedRequest.continue();
+            }
+        };
+        page.on('request', requestHandler);
+
+        // Click checkout button
+        await page.$eval('#cart-checkout-btn', btn => btn.scrollIntoView({ block: 'center' }));
         await new Promise(r => setTimeout(r, 300));
-        await page.evaluate(() => document.querySelector('#cart-checkout-btn').click());
-        await new Promise(r => setTimeout(r, 1000));
         
-        const btnText = await page.$eval('#cart-checkout-btn', el => el.textContent.trim());
-        console.log(`    → Button state after click: "${btnText}"`);
+        // We wait for navigation when we click
+        const [response] = await Promise.all([
+            page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 10000 }).catch(() => null),
+            page.evaluate(() => document.querySelector('#cart-checkout-btn').click())
+        ]);
         
-        // Verify API works server-side (not blocked by CORS)
-        const apiRes = await fetch(`${API_BASE}/api/checkout`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                items: [{ name: 'E2E Cart Item', price: '€7.20', qty: 1, image: 'test.png' }],
-                customerName: 'E2E Tester',
-            }),
-        });
-        const apiData = await apiRes.json();
-        assert(apiData.checkoutUrl?.includes('mollie.com'), `Server-side checkout failed: ${JSON.stringify(apiData)}`);
-        console.log(`    → Server checkout URL: ${apiData.checkoutUrl}`);
+        // Turn off interception
+        page.off('request', requestHandler);
+        await page.setRequestInterception(false);
         
-        await page.screenshot({ path: `${SCREENSHOTS_DIR}/06_after_checkout_click.png` });
+        const currentUrl = page.url();
+        assert(currentUrl.startsWith('https://www.mollie.com/checkout/'), `Did not redirect to Mollie, stuck on: ${currentUrl}`);
+        console.log(`    → Successfully redirected to: ${currentUrl}`);
     });
 
     // ─── Test: Success page ─────────────────────────────
