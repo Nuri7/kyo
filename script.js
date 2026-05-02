@@ -117,17 +117,21 @@ function showScreen(name) {
 
 async function init() {
     try {
-        const res = await fetch('drinks.json');
+        const pathPrefix = window.location.pathname.includes('/quiz') ? '../' : '';
+        const res = await fetch(pathPrefix + 'drinks.json');
         const data = await res.json();
-        DRINKS_DB = data.filter(d => d.active !== false);
+        DRINKS_DB = data.filter(d => d.active !== false).map(d => ({...d, image: pathPrefix + d.image}));
     } catch (e) {
         console.error('Failed to load drinks.json', e);
     }
 
-    dom.startBtn.addEventListener('click', startQuiz);
-    dom.backBtn.addEventListener('click', goBack);
-    dom.restartBtns.forEach(btn => btn.addEventListener('click', () => showScreen('home')));
-    dom.destinyBtn?.addEventListener('click', destinyRoll);
+    if (dom.startBtn) dom.startBtn.addEventListener('click', startQuiz);
+    if (dom.backBtn) dom.backBtn.addEventListener('click', goBack);
+    if (dom.restartBtns) dom.restartBtns.forEach(btn => btn.addEventListener('click', () => {
+        if (window.location.pathname.includes('/quiz')) window.location.href = '../';
+        else showScreen('home');
+    }));
+    if (dom.destinyBtn) dom.destinyBtn.addEventListener('click', destinyRoll);
 
     // Start marquee animation
     startMarquee();
