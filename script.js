@@ -128,13 +128,18 @@ async function init() {
     if (dom.startBtn) dom.startBtn.addEventListener('click', startQuiz);
     if (dom.backBtn) dom.backBtn.addEventListener('click', goBack);
     if (dom.restartBtns) dom.restartBtns.forEach(btn => btn.addEventListener('click', () => {
-        if (window.location.pathname.includes('/quiz')) window.location.href = '../';
+        if (window.location.pathname.includes('/quiz')) window.location.reload();
         else showScreen('home');
     }));
     if (dom.destinyBtn) dom.destinyBtn.addEventListener('click', destinyRoll);
 
     // Start marquee animation
     startMarquee();
+
+    // Auto-start if we are on the /quiz/ route
+    if (window.location.pathname.includes('/quiz')) {
+        startQuiz();
+    }
 }
 
 function startQuiz() {
