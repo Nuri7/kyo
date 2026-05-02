@@ -166,7 +166,7 @@ function createCartDrawer() {
                 <label for="cart-customer-name">Your name (for pickup)</label>
                 <input id="cart-customer-name" type="text" placeholder="e.g. Yuki" maxlength="50" autocomplete="given-name" />
             </div>
-            <button id="cart-checkout-btn" class="btn btn-primary cart-checkout-btn" disabled>
+            <button id="cart-checkout-btn" class="btn btn-primary cart-checkout-btn">
                 Pay with Mollie
             </button>
             <p id="cart-error" class="cart-error"></p>
@@ -181,15 +181,20 @@ function createCartDrawer() {
     const nameInput = drawer.querySelector('#cart-customer-name');
     const errorEl = drawer.querySelector('#cart-error');
 
-    // Enable/disable checkout based on name input
+    // Clear error when user types
     nameInput.addEventListener('input', () => {
-        checkoutBtn.disabled = !nameInput.value.trim() || Cart.count === 0;
         errorEl.textContent = '';
+        nameInput.classList.remove('input-error');
     });
 
     checkoutBtn.addEventListener('click', async () => {
         const name = nameInput.value.trim();
-        if (!name) { errorEl.textContent = 'Please enter your name'; return; }
+        if (!name) { 
+            errorEl.textContent = 'Please enter your name for pickup'; 
+            nameInput.focus();
+            nameInput.classList.add('input-error');
+            return; 
+        }
         if (Cart.count === 0) { errorEl.textContent = 'Cart is empty'; return; }
 
         checkoutBtn.disabled = true;
@@ -231,9 +236,6 @@ function createCartDrawer() {
         emptyMsg.style.display = 'none';
         footer.style.display = 'flex';
         totalEl.textContent = Cart.totalFormatted;
-
-        // Update checkout button state
-        checkoutBtn.disabled = !nameInput.value.trim() || count === 0;
 
         // Render items (HTML-escaped to prevent XSS)
         itemsContainer.innerHTML = items.map(item => `

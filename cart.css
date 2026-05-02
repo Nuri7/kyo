@@ -354,6 +354,18 @@
     box-shadow: 0 0 0 4px var(--matcha-glow);
 }
 
+.cart-name-row input.input-error {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.15);
+    animation: shakeError 0.4s ease-in-out;
+}
+
+@keyframes shakeError {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-4px); }
+    40%, 80% { transform: translateX(4px); }
+}
+
 .cart-name-row input::placeholder {
     color: rgba(0, 0, 0, 0.25);
 }

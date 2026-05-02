@@ -286,21 +286,32 @@ async function runBrowserTests() {
         assert(placeholder, 'Input should have a placeholder');
     });
 
-    // ─── Test: Checkout button starts disabled ──────────
-    await test('Checkout button is disabled without name', async () => {
-        const disabled = await page.$eval('#cart-checkout-btn', el => el.disabled);
-        assert(disabled, 'Checkout button should be disabled without name');
+    // ─── Test: Checkout button starts enabled but errors without name ──────────
+    await test('Clicking checkout without name shows error', async () => {
+        // Scroll and click the checkout button via JS
+        await page.$eval('#cart-checkout-btn', btn => btn.scrollIntoView({ block: 'center' }));
+        await page.evaluate(() => document.querySelector('#cart-checkout-btn').click());
+        
+        // Check for error text
+        const errorText = await page.$eval('#cart-error', el => el.textContent.trim());
+        assert(errorText.includes('enter your name'), `Error text should ask for name, got: "${errorText}"`);
+        
+        // Check for error class on input
+        const hasErrorClass = await page.$eval('#cart-customer-name', el => el.classList.contains('input-error'));
+        assert(hasErrorClass, 'Name input should have input-error class');
     });
 
-    // ─── Test: Typing name enables checkout ─────────────
-    await test('Typing name enables checkout button', async () => {
+    // ─── Test: Typing name clears error ─────────────
+    await test('Typing name clears error state', async () => {
         await page.type('#cart-customer-name', 'E2E Tester');
-        await page.waitForFunction(() => {
-            return !document.querySelector('#cart-checkout-btn').disabled;
-        }, { timeout: 3000 });
+        await new Promise(r => setTimeout(r, 100)); // wait for input event
         
-        const disabled = await page.$eval('#cart-checkout-btn', el => el.disabled);
-        assert(!disabled, 'Checkout button should be enabled after name input');
+        const errorText = await page.$eval('#cart-error', el => el.textContent.trim());
+        assert(errorText === '', `Error text should be clear, got: "${errorText}"`);
+        
+        const hasErrorClass = await page.$eval('#cart-customer-name', el => el.classList.contains('input-error'));
+        assert(!hasErrorClass, 'Name input should not have input-error class after typing');
+        
         await page.screenshot({ path: `${SCREENSHOTS_DIR}/04_name_entered.png` });
     });
 
